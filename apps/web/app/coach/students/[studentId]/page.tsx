@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ActionLink, Badge, BottomNav, MetricTile, Panel, ScreenShell } from "@/components/ui";
-import { coachDecisionByStudentId, studentCheckInDraft, workspaceSnapshots } from "@/lib/sample-data";
+import { coachDecisionByStudentId, workspaceSnapshots } from "@/lib/sample-data";
 
 export default async function CoachStudentWorkspace({
   params,
@@ -113,12 +113,11 @@ export default async function CoachStudentWorkspace({
       </div>
 
       <div className="stack">
-        <ActionLink href="/student/check-in">Open recovery check-in</ActionLink>
-        <ActionLink href={`/student/check-in?athlete=${studentCheckInDraft.studentName}`} tone="secondary">
-          Share student flow
+        <ActionLink href={`/coach/students/${studentId}/log-session`}>Log session</ActionLink>
+        <ActionLink href="/student/check-in" tone="secondary">
+          Open recovery check-in
         </ActionLink>
       </div>
     </ScreenShell>
   );
 }
-

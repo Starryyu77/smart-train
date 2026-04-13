@@ -19,6 +19,8 @@
   - `/coach/students/[studentId]`
   - `/student/check-in`
 - Verified the implementation with `npm run typecheck` and `npm run build`.
+- Added the next core coach workflow: `/coach/students/[studentId]/log-session`.
+- Rewired the athlete detail screen so the primary next action is logging a session instead of only viewing the student recovery surface.
 
 ## 3. Decisions Made + Reasons
 
@@ -30,7 +32,8 @@
 
 ## 4. Open Issues
 - The final visual density and copy may still need another pass after the coded version is reviewed in-browser.
-- Session logging flow and plan authoring are not implemented yet.
+- Plan adjustment is not implemented yet.
+- Session logging is still powered by seed data and does not persist.
 
 ## 5. Task-Specific Constraints
 - Preserve the approved Web-first baseline.
@@ -38,4 +41,4 @@
 - Every meaningful round of changes should be committed.
 
 ## 6. Next Step
-- Review the coded mobile surfaces with the user, then implement the next highest-value route: session logging or plan adjustment.
+- Review the coded mobile surfaces with the user, then implement the next highest-value route after session logging: plan adjustment / version diff.

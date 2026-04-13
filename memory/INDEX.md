@@ -10,8 +10,8 @@
 - [active/current.md](active/current.md)
 
 ## Tasks
-- `autoplan-mvp-foundation` - active
-- `figma-ui-exploration` - active
+- `autoplan-mvp-foundation` - baseline plan
+- `figma-ui-exploration` - archived / superseded by direct code implementation
 - `mobile-ui-implementation` - active
 - `repo-bootstrap-and-memory` - archived / baseline setup
 

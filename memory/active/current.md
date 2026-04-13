@@ -6,4 +6,4 @@
 
 ## Current Focus
 - Implement the mobile-first product direction directly in the Next.js app.
-- Review the rewritten coach and student routes in code, then extend the next core workflow.
+- Extend the mobile-first coach flow from athlete detail into session logging, then continue toward plan adjustment.

@@ -73,6 +73,39 @@ export interface DraftRecoveryState {
   note: string;
 }
 
+export type SessionLogBlockStatus = "on-plan" | "adjusted" | "cut-short";
+
+export interface SessionLogBlock {
+  id: string;
+  title: string;
+  planned: string;
+  actual: string;
+  status: SessionLogBlockStatus;
+  note: string;
+}
+
+export interface SessionLogDraft {
+  studentId: string;
+  sessionLabel: string;
+  startedAt: string;
+  progressPercent: number;
+  loggedSets: number;
+  plannedSets: number;
+  syncStatus: string;
+  painRaised: boolean;
+  painStatus: string;
+  loadDecision: string;
+  draftRecovered: boolean;
+  readinessBadge: string;
+  targetRpe: string;
+  actualRpe: string;
+  loadChange: string;
+  intensityNote: string;
+  coachNote: string;
+  handoffNote: string;
+  blocks: SessionLogBlock[];
+}
+
 export interface StudentWorkspaceSnapshot {
   student: StudentSummary;
   currentPhase: string;
@@ -83,4 +116,3 @@ export interface StudentWorkspaceSnapshot {
   timeline: TimelineEvent[];
   draftRecovery: DraftRecoveryState;
 }
-
