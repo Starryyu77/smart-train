@@ -5,5 +5,5 @@
 - Updated: 2026-04-13
 
 ## Current Focus
-- Review the new MVP foundation plan with autoplan-style passes.
-- Turn current product documents into a reviewed, execution-ready project plan.
+- Hold the autoplan review output as the current working baseline.
+- Capture user approval or overrides on the surfaced taste decisions.
