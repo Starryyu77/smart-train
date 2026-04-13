@@ -3,6 +3,30 @@ import { notFound } from "next/navigation";
 import { ActionLink, Badge, BottomNav, Panel, ScreenShell } from "@/components/ui";
 import { coachDecisionByStudentId, workspaceSnapshots } from "@/lib/sample-data";
 
+const STUDENT_PAGE_COPY: Record<
+  string,
+  { goal: string; risk: string; execution: string; recovery: string }
+> = {
+  student_lin: {
+    goal: "增肌推进",
+    risk: "腰背观察",
+    execution: "RDL 已降重",
+    recovery: "晨起腰背有顶感",
+  },
+  student_zhou: {
+    goal: "恢复规律",
+    risk: "暂不加复杂度",
+    execution: "上肢完成稳定",
+    recovery: "恢复平稳",
+  },
+  student_mei: {
+    goal: "重建节奏",
+    risk: "计划待刷新",
+    execution: "训练中途结束",
+    recovery: "重返节奏困难",
+  },
+};
+
 export default async function CoachStudentWorkspace({
   params,
 }: {
@@ -11,8 +35,9 @@ export default async function CoachStudentWorkspace({
   const { studentId } = await params;
   const snapshot = workspaceSnapshots[studentId];
   const coachDecision = coachDecisionByStudentId[studentId];
+  const pageCopy = STUDENT_PAGE_COPY[studentId];
 
-  if (!snapshot || !coachDecision) {
+  if (!snapshot || !coachDecision || !pageCopy) {
     notFound();
   }
 
@@ -20,7 +45,7 @@ export default async function CoachStudentWorkspace({
     <ScreenShell
       label="教练 / 学员"
       title={snapshot.student.name}
-      description="先把这次训练和恢复信号比清楚，再决定下一步。"
+      description="先看执行和恢复。"
       leading={
         <Link className="back-link" href="/coach">
           返回
@@ -34,12 +59,12 @@ export default async function CoachStudentWorkspace({
           <Badge tone="coral">疼痛观察</Badge>
         </div>
         <section className="summary-item">
-          <span className="summary-item__label">当前目标</span>
-          <p className="summary-item__value">{snapshot.student.currentGoal}</p>
+          <span className="summary-item__label">目标</span>
+          <p className="summary-item__value">{pageCopy.goal}</p>
         </section>
         <section className="summary-item summary-item--accent">
-          <span className="summary-item__label">当前风险</span>
-          <p className="summary-item__value">{snapshot.primaryRisk}</p>
+          <span className="summary-item__label">风险</span>
+          <p className="summary-item__value">{pageCopy.risk}</p>
         </section>
       </section>
 
@@ -67,7 +92,7 @@ export default async function CoachStudentWorkspace({
                   <span className="mini-stat-row__value">{snapshot.latestExecution.adherence}</span>
                 </div>
               </div>
-              <p>{snapshot.latestExecution.note}</p>
+              <p>{pageCopy.execution}</p>
             </section>
 
             <section className="compare-cell compare-cell--accent">
@@ -91,7 +116,7 @@ export default async function CoachStudentWorkspace({
                   <span className="mini-stat-row__value">{snapshot.latestFeedback.adherence}</span>
                 </div>
               </div>
-              <p>{snapshot.latestFeedback.note}</p>
+              <p>{pageCopy.recovery}</p>
             </section>
           </div>
         </Panel>

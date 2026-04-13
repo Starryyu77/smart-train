@@ -275,6 +275,10 @@ p {
   gap: 10px;
 }
 
+.signal-strip--two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
 .signal-chip {
   display: grid;
   gap: 6px;
@@ -351,7 +355,10 @@ p {
 }
 
 .queue-card__summary {
-  font-size: 0.92rem;
+  color: var(--text);
+  font-size: 0.88rem;
+  line-height: 1.25;
+  font-weight: 700;
 }
 
 .queue-card__cta {
@@ -668,7 +675,7 @@ p {
 
 .guide-step p,
 .glossary-item p {
-  font-size: 0.9rem;
+  font-size: 0.84rem;
 }
 
 .guide-step__link {
