@@ -20,6 +20,13 @@
   - Tencent Cloud Lighthouse product positioning, pricing, and scenario limits
   - Alibaba Cloud SWAS product positioning, region guidance, and filing implications
 - Wrote the first hosting and sizing recommendation to `docs/infrastructure/2026-04-13-server-selection-and-sizing.md`.
+- Expanded the work into a fuller vendor-comparison report covering:
+  - our current workload assumptions
+  - three architecture options
+  - domestic vs international cloud-vendor comparison
+  - deployment recommendations by stage
+- Prepared the report for delivery into the target Notion page supplied by the user.
+- Wrote the finished report into the target Notion page `服务器选型与云厂商对比报告`.
 
 ## 3. Decisions Made + Reasons
 
@@ -35,6 +42,7 @@
 - The project still lacks a production `start` script, deployment automation, and database persistence.
 - Final provider choice between Tencent Cloud and Alibaba Cloud is not locked.
 - Real load testing has not been run yet, so the capacity estimates are engineering planning estimates only.
+- The user still needs to choose whether the next environment is `internal offshore demo` or `mainland pilot`.
 
 ## 5. Task-Specific Constraints
 - Recommendations must fit the current project stage instead of over-engineering for hypothetical future scale.
@@ -42,4 +50,4 @@
 - Every meaningful round of conclusions must be written into `memory/` and committed.
 
 ## 6. Next Step
-- Confirm whether the next deployment target is `internal offshore demo` or `mainland pilot`, then turn the recommendation into a concrete deployment baseline and environment checklist.
+- Ask the user to choose between `internal offshore demo` and `mainland pilot`, then turn the chosen path into a concrete deployment checklist.

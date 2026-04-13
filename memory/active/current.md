@@ -5,5 +5,5 @@
 - Updated: 2026-04-13
 
 ## Current Focus
-- Evaluate the first deployment target for the current web app.
-- The repository now has a written server-selection baseline covering single-node demo sizing, region strategy, filing implications, and upgrade triggers toward ECS/CVM plus managed Postgres.
+- Evaluate and document the first deployment target for the current web app.
+- The repository now has a written server-selection baseline, an expanded vendor-comparison report, and a delivered Notion report; the next decision is whether to optimize for `internal offshore demo` or `mainland pilot`.
