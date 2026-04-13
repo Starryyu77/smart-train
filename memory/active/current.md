@@ -5,5 +5,5 @@
 - Updated: 2026-04-13
 
 ## Current Focus
-- Hold the autoplan review output as the current working baseline.
-- Resolve the China delivery-surface discussion and capture user approval or overrides on the surfaced taste decisions.
+- Execute Phase 1 repository and platform foundations against the approved Web-first baseline.
+- Validate the new scaffold, then move into auth and database groundwork.

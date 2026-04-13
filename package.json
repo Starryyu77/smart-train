@@ -1,0 +1,19 @@
+{
+  "name": "smart-train",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "dev": "npm run dev --workspace @smart-train/web",
+    "build": "npm run build --workspace @smart-train/web",
+    "typecheck": "npm run typecheck --workspace @smart-train/web",
+    "check": "npm run typecheck && npm run build"
+  }
+}
+

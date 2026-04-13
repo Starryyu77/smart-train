@@ -7,6 +7,8 @@
 
 **Architecture:** Start with a modular monolith, not microservices. Use a coach-first web app, a lightweight student feedback surface, a single relational data store with strict `org_id` boundaries, object storage for files, background jobs for summaries and alerts, and a rules-first intelligence layer with a provider adapter for future model integration.
 
+**Execution baseline approved on 2026-04-13:** Ship Web-first. The first surface is a coach desktop web app with student mobile H5 inside the same product boundary. Defer mini-program and native app work until distribution or device requirements prove they are necessary.
+
 **Why this plan exists now:** The repository currently contains product documents but no implementation scaffold. This plan translates those documents into a buildable MVP shape, explicit boundaries, and phased execution so strategy, design, and engineering review can happen against one shared artifact.
 
 ## 1. Product Premises
@@ -283,7 +285,7 @@
 ## 14. Implementation Phases
 
 ### Phase 1: Repository and platform foundations
-- Add monorepo or app skeleton, tooling, CI, and environment structure.
+- Add an npm-workspace repo scaffold with one deployable Next.js app, tooling, CI, and environment structure.
 - Stand up auth, org boundaries, audit primitives, and file storage abstraction.
 - Create shared docs for architecture, domain language, and security assumptions.
 
@@ -310,13 +312,18 @@
 - AI language appears before evidence quality is strong enough to justify it.
 - Security and audit work gets deferred because no real customer is live yet.
 
-## 16. Open Decisions
+## 16. Confirmed Execution Baseline
 
-- Exact framework choice for the first coach web app and backend.
-- Whether to keep a single repo app or use app/package split from day one.
-- Whether student feedback ships as a dedicated frontend surface or a thin route within the main web app.
+- Frontend and runtime: `Next.js + React + TypeScript`.
+- Repository shape: one deployable web app plus internal packages for domain and platform concerns.
+- Product surfaces: coach desktop web first, student mobile H5 in the same application boundary, admin routes in the same shell.
+- China rollout path: private offshore pilot is acceptable before a public mainland-hosted launch; public mainland launch must follow the filing path already captured in project memory.
+
+### Remaining Open Decisions
+
 - Whether weekly review output is stored as materialized snapshots, generated on demand, or both.
 - How much of note extraction is rules-based in MVP vs queued for later AI integration.
+- Which auth provider and database migration workflow should anchor the first production setup.
 
 ## 17. Recommended Next Planning Outputs
 

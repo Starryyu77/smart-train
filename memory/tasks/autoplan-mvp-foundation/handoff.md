@@ -9,6 +9,9 @@
 - Started a dedicated task memory for the autoplan review work.
 - Appended review findings, decision audit trail, and completion summaries to the plan.
 - Generated a standalone test-plan artifact and root `TODOS.md`.
+- Captured user approval on the Web-first recommendation.
+- Added the Phase 1 repository scaffold with a Next.js app, internal packages, CI, and first-pass architecture/design docs.
+- Installed dependencies and verified the scaffold with a successful typecheck and production build.
 
 ## Key Decisions
 - Review should target a synthesized plan file, not the raw docs.
@@ -16,12 +19,10 @@
 - The first pilot wedge should narrow to solo coaches and very small studios in general fitness.
 
 ## Open Issues
-- The plan still needs user approval or overrides on the surfaced taste decisions.
-- `DESIGN.md` still does not exist.
-- No implementation scaffold exists yet.
-- The China delivery surface and hosting approach still need to be confirmed with the user.
+- Real auth, Postgres schema, and session draft recovery are still pending.
+- The first public deployment path still needs to be chosen.
 
 ## Next Session Instructions
 - Read the new plan file.
 - Read `TODOS.md`.
-- Capture the user's approval or overrides, resolve the China delivery-surface recommendation, then lock the plan as the execution baseline or revise it.
+- Validate the scaffold, then continue Phase 1 by adding auth, schema, and data-access foundations.

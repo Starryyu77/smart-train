@@ -1,0 +1,13 @@
+{
+  "name": "@smart-train/platform",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@smart-train/domain": "0.1.0"
+  }
+}
+
