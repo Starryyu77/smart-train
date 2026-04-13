@@ -112,11 +112,11 @@ export function ActionLink({
   );
 }
 
-export function BottomNav({ active }: { active: "Today" | "Athletes" | "Check-in" }) {
+export function BottomNav({ active }: { active: "Today" | "Athletes" | "Guide" }) {
   const items = [
     { key: "Today", label: "今日", href: "/coach" },
     { key: "Athletes", label: "学员", href: "/coach/students/student_lin" },
-    { key: "Check-in", label: "反馈", href: "/student/check-in" },
+    { key: "Guide", label: "上手", href: "/coach/getting-started" },
   ] as const;
 
   return (

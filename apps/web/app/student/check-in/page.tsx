@@ -1,13 +1,18 @@
-import { ActionLink, Badge, BottomNav, Panel, ScreenShell } from "@/components/ui";
+import Link from "next/link";
+import { ActionLink, Badge, Panel, ScreenShell } from "@/components/ui";
 import { studentCheckInDraft } from "@/lib/sample-data";
 
 export default function StudentCheckInPage() {
   return (
     <ScreenShell
-      label="学员 / 恢复"
-      title="你现在感觉怎么样？"
-      description="一条恢复反馈应该在一分钟内完成。"
-      footer={<BottomNav active="Check-in" />}
+      label="学员端 / 恢复"
+      title="今天感觉怎么样？"
+      description="用 1 分钟回一次反馈。"
+      leading={
+        <Link className="back-link" href="/student">
+          返回
+        </Link>
+      }
     >
       <Panel title={studentCheckInDraft.sessionLabel} eyebrow="今日" badge={<Badge tone="ghost">60 秒</Badge>}>
         <div className="progress-meter">
@@ -33,9 +38,9 @@ export default function StudentCheckInPage() {
       </div>
 
       <div className="stack">
-        <ActionLink href="/coach/students/student_lin">提交反馈</ActionLink>
-        <ActionLink href="/coach" tone="secondary">
-          返回教练端流程
+        <ActionLink href="/student/submitted">提交反馈</ActionLink>
+        <ActionLink href="/student" tone="secondary">
+          返回学员端首页
         </ActionLink>
       </div>
     </ScreenShell>

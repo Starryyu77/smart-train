@@ -152,8 +152,8 @@ export default async function CoachStudentWorkspace({
         <ActionLink href={`/coach/students/${studentId}/plan-adjustment`} tone="secondary">
           调整计划
         </ActionLink>
-        <ActionLink href="/student/check-in" tone="secondary">
-          打开恢复反馈
+        <ActionLink href="/student" tone="secondary">
+          打开学员端
         </ActionLink>
       </div>
     </ScreenShell>

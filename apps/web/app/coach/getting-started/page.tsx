@@ -43,7 +43,7 @@ export default function CoachGettingStartedPage() {
           返回
         </Link>
       }
-      footer={<BottomNav active="Today" />}
+      footer={<BottomNav active="Guide" />}
     >
       <div className="guide-step-list">
         {steps.map((step) => (
@@ -62,8 +62,8 @@ export default function CoachGettingStartedPage() {
 
       <div className="stack">
         <ActionLink href="/coach/students/student_lin">直接进入演示学员</ActionLink>
-        <ActionLink href="/student/check-in" tone="secondary">
-          打开学员反馈页
+        <ActionLink href="/student" tone="secondary">
+          打开学员端
         </ActionLink>
       </div>
     </ScreenShell>

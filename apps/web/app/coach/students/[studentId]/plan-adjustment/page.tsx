@@ -134,8 +134,8 @@ export default async function CoachPlanAdjustmentPage({
 
       <div className="stack">
         <ActionLink href={`/coach/students/${studentId}`}>发布 {planDraft.nextVersion}</ActionLink>
-        <ActionLink href="/student/check-in" tone="secondary">
-          打开关联恢复反馈
+        <ActionLink href="/student" tone="secondary">
+          打开学员端
         </ActionLink>
       </div>
     </ScreenShell>

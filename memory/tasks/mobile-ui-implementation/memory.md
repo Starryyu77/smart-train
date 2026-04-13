@@ -29,6 +29,7 @@
 - Tightened the onboarding typography so the tutorial no longer mixes oversized emphasis text with smaller body copy inside the same content block.
 - Flattened the typography hierarchy on the coach home screen and athlete detail screen so each content block now has a single dominant text line instead of multiple competing emphasis styles.
 - After user review, reversed the over-explained direction: reduced copy volume on home, onboarding, and athlete detail, and restored onboarding as an explicit top-level action on the coach home screen.
+- Split the demo into two visible product entries: `/coach` stays coach-only, `/student` becomes a separate student-facing app entry, and `/` now acts as the selector between them.
 
 ## 3. Decisions Made + Reasons
 
@@ -40,6 +41,7 @@
 | 4 | Implement session logging before plan adjustment. | It adds the first true evidence-capture workflow without forcing the product into heavier editing complexity too early. | Jump directly to plan editing: rejected because it skips the core session evidence layer. |
 | 5 | Reduce mixed-size emphasis inside home, onboarding, and athlete blocks instead of only tweaking font sizes globally. | The user’s discomfort came from multiple “headline-like” elements competing within one card, so the fix needed structural hierarchy changes. | Only shrink the largest text: rejected because it would keep the hierarchy conflict intact. |
 | 6 | Treat the current mobile demo as an action-first product surface, not a documentation-like explainer. | The user explicitly objected to dense text and wanted a more obvious tutorial entry, which means the UI must bias toward short labels, direct actions, and fewer explanatory sentences. | Keep explanatory copy and only polish styling: rejected because it preserves the underlying “too much text” problem. |
+| 7 | Make the student surface a separate visible app entry instead of a page embedded in the coach shell. | The user explicitly said the student side should be seen as its own light app, which requires its own route entry, own mini-flow, and removal from the coach bottom nav. | Keep the student page inside the shared coach navigation: rejected because it collapses both roles into one interface shell. |
 
 ## 4. Open Issues
 - The final visual density and copy may still need another pass after the latest typography cleanup is reviewed in-browser.
@@ -47,6 +49,7 @@
 - Session logging and plan adjustment are still powered by seed data and do not persist.
 - No real plan publish mutation exists yet; the current route is a product-shape prototype.
 - The onboarding tutorial is still static and not conditionally shown based on first-run state.
+- Coach and student are now separated at the UI level, but still live in one Next.js deployable app rather than two separately deployed frontends.
 
 ## 5. Task-Specific Constraints
 - Preserve the approved Web-first baseline.
@@ -54,4 +57,4 @@
 - Every meaningful round of changes should be committed.
 
 ## 6. Next Step
-- Review the new low-copy, action-first pass with the user, then implement real data persistence, publish flows, and first-run state behind the tutorial.
+- Review the new split-entry coach/student structure with the user, then implement real data persistence, publish flows, and first-run state behind the tutorial.

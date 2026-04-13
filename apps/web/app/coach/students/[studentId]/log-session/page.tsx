@@ -150,8 +150,8 @@ export default async function CoachStudentLogSessionPage({
 
       <div className="stack">
         <ActionLink href={`/coach/students/${studentId}/plan-adjustment`}>调整下一版计划</ActionLink>
-        <ActionLink href="/student/check-in" tone="secondary">
-          请求恢复反馈
+        <ActionLink href="/student" tone="secondary">
+          打开学员端
         </ActionLink>
       </div>
     </ScreenShell>
