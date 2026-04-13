@@ -34,7 +34,7 @@ export default async function CoachPlanAdjustmentPage({
     <ScreenShell
       label="教练 / 计划"
       title={planDraft.nextVersion}
-      description="版本调整应该是一页内做完的判断，不该退化成重型编辑器。"
+      description="让原计划和新计划并排出现，你才知道这次到底改了什么。"
       leading={
         <Link className="back-link" href={`/coach/students/${studentId}/log-session`}>
           返回
@@ -63,18 +63,22 @@ export default async function CoachPlanAdjustmentPage({
         </div>
       </section>
 
-      <section className="metric-grid">
-        <MetricTile
-          label="来源训练"
-          value={planDraft.basedOnSession}
-          detail={snapshot.latestExecution.adherence}
-        />
-        <MetricTile
-          label="复核窗口"
-          value={planDraft.reviewWindow}
-          detail={planDraft.focusArea}
-          tone="lime"
-        />
+      <section className="signal-strip">
+        <div className="signal-chip">
+          <span className="signal-chip__label">来源训练</span>
+          <strong className="signal-chip__value">{planDraft.basedOnSession}</strong>
+          <p className="signal-chip__detail">完成度 {snapshot.latestExecution.adherence}</p>
+        </div>
+        <div className="signal-chip signal-chip--lime">
+          <span className="signal-chip__label">复核窗口</span>
+          <strong className="signal-chip__value">{planDraft.reviewWindow}</strong>
+          <p className="signal-chip__detail">{planDraft.focusArea}</p>
+        </div>
+        <div className="signal-chip">
+          <span className="signal-chip__label">发布状态</span>
+          <strong className="signal-chip__value">{planDraft.publishStatus}</strong>
+          <p className="signal-chip__detail">先确认差异再发布</p>
+        </div>
       </section>
 
       <div className="stack">
@@ -84,13 +88,13 @@ export default async function CoachPlanAdjustmentPage({
         </Panel>
 
         <Panel
-          title="版本差异"
-          eyebrow="变更"
+          title="原计划 vs 新计划"
+          eyebrow="只改必要的地方"
           badge={<Badge tone="ghost">{planDraft.changes.length} 处改动</Badge>}
         >
           <div className="change-list">
             {planDraft.changes.map((change) => (
-              <section className="change-item" key={change.id}>
+              <section className={`change-item change-item--${change.tone}`} key={change.id}>
                 <div className="change-item__top">
                   <div className="stack-tight">
                     <strong>{change.exerciseLabel}</strong>
@@ -115,7 +119,7 @@ export default async function CoachPlanAdjustmentPage({
           </div>
         </Panel>
 
-        <Panel title="发布检查" eyebrow="守门条件" tone="lime">
+        <Panel title="发布前再确认" eyebrow="守门条件" tone="lime">
           <div className="check-list">
             {planDraft.checklist.map((item) => (
               <div className="check-list__item" key={item}>

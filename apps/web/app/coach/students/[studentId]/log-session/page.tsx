@@ -30,7 +30,7 @@ export default async function CoachStudentLogSessionPage({
     <ScreenShell
       label="教练 / 记录"
       title={`记录 ${sessionDraft.sessionLabel}`}
-      description="训练结束后，教练应该能在 90 秒内留下足够准确的证据。"
+      description="先把计划和实际的差异记清楚，再给出这次训练判断。"
       leading={
         <Link className="back-link" href={`/coach/students/${studentId}`}>
           返回
@@ -57,24 +57,30 @@ export default async function CoachStudentLogSessionPage({
         </div>
       </section>
 
-      <section className="metric-grid">
-        <MetricTile
-          label="已记录组数"
-          value={`${sessionDraft.loggedSets}/${sessionDraft.plannedSets}`}
-          detail={sessionDraft.syncStatus}
-        />
-        <MetricTile
-          label="负荷判断"
-          value={sessionDraft.painStatus}
-          detail={sessionDraft.loadDecision}
-          tone={sessionDraft.painRaised ? "default" : "lime"}
-        />
+      <section className="signal-strip">
+        <div className="signal-chip">
+          <span className="signal-chip__label">已记组数</span>
+          <strong className="signal-chip__value">
+            {sessionDraft.loggedSets}/{sessionDraft.plannedSets}
+          </strong>
+          <p className="signal-chip__detail">{sessionDraft.syncStatus}</p>
+        </div>
+        <div className={`signal-chip ${sessionDraft.painRaised ? "" : "signal-chip--lime"}`}>
+          <span className="signal-chip__label">本次判断</span>
+          <strong className="signal-chip__value">{sessionDraft.painStatus}</strong>
+          <p className="signal-chip__detail">{sessionDraft.loadDecision}</p>
+        </div>
+        <div className="signal-chip">
+          <span className="signal-chip__label">草稿状态</span>
+          <strong className="signal-chip__value">{sessionDraft.draftRecovered ? "已恢复" : "实时"}</strong>
+          <p className="signal-chip__detail">继续记录即可</p>
+        </div>
       </section>
 
       <div className="stack">
         <Panel
-          title="本次判断"
-          eyebrow="强度"
+          title="这次训练怎么判断"
+          eyebrow="强度结论"
           badge={<Badge tone={sessionDraft.painRaised ? "coral" : "ghost"}>{sessionDraft.readinessBadge}</Badge>}
         >
           <div className="stat-list">
@@ -95,8 +101,8 @@ export default async function CoachStudentLogSessionPage({
         </Panel>
 
         <Panel
-          title="动作记录"
-          eyebrow="实际 vs 计划"
+          title="计划 vs 实际"
+          eyebrow="先看哪里变了"
           badge={<Badge tone="ghost">{sessionDraft.blocks.length} 个动作块</Badge>}
         >
           <div className="log-block-list">
@@ -105,7 +111,7 @@ export default async function CoachStudentLogSessionPage({
                 <div className="log-block__top">
                   <div className="stack-tight">
                     <strong>{block.title}</strong>
-                    <p className="meta-caption">计划 {block.planned}</p>
+                    <p className="meta-caption">状态 {SESSION_BLOCK_STATUS_LABEL[block.status]}</p>
                   </div>
                   <Badge
                     tone={
@@ -119,14 +125,24 @@ export default async function CoachStudentLogSessionPage({
                     {SESSION_BLOCK_STATUS_LABEL[block.status]}
                   </Badge>
                 </div>
-                <p className="log-block__actual">{block.actual}</p>
+                <div className="diff-pair diff-pair--tight">
+                  <div className="diff-pair__side">
+                    <span className="meta-caption">原计划</span>
+                    <p>{block.planned}</p>
+                  </div>
+                  <div className="diff-pair__divider">→</div>
+                  <div className="diff-pair__side diff-pair__side--next">
+                    <span className="meta-caption">实际</span>
+                    <p>{block.actual}</p>
+                  </div>
+                </div>
                 <p>{block.note}</p>
               </section>
             ))}
           </div>
         </Panel>
 
-        <Panel title="教练备注" eyebrow="交接" tone="lime">
+        <Panel title="这次训练后的判断" eyebrow="下一步" tone="lime">
           <p className="panel-emphasis">{sessionDraft.coachNote}</p>
           <p>{sessionDraft.handoffNote}</p>
         </Panel>

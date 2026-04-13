@@ -8,6 +8,7 @@
 | 4 | Extend athlete detail into a dedicated `log-session` route before touching plan editing. | Session logging is the shortest path from “looks like a product” to “supports real coach work”. | Jump straight to plan editing: rejected because it skips the evidence-capture layer the product depends on. | 2026-04-13 |
 | 5 | Implement plan adjustment as a diff-and-publish screen, not as a full plan editor. | The MVP job is to support the next coaching decision quickly on mobile, not to ship a heavy authoring tool yet. | Start with a full editor: rejected because it adds too much form complexity before the decision flow is validated. | 2026-04-13 |
 | 6 | Add a built-in first-time onboarding route instead of relying on placeholder copy alone. | The current product flow is understandable once seen, but first-time users still need explicit sequencing. | Add only tooltip-like hints: rejected because they do not explain the end-to-end flow. | 2026-04-13 |
+| 7 | Redesign comparison-heavy screens around explicit side-by-side structures instead of stacking generic cards. | The user feedback correctly identified that the old UI had text noise but weak visual comparison. | Only tune colors and copy: rejected because it would not fix the structural readability problem. | 2026-04-13 |
 
 ## Notes
 

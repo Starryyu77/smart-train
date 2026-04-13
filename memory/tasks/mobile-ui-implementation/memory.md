@@ -25,6 +25,7 @@
 - Connected the flow from session logging into a mobile-first version diff and publish screen.
 - Localized all current user-facing mobile UI copy into Chinese so the product demo surfaces no longer mix Chinese and English labels.
 - Added a first-time coach onboarding tutorial at `/coach/getting-started` and exposed it from the coach home screen.
+- Reworked the visual hierarchy of the coach mobile surfaces so comparison-heavy screens now emphasize `执行 vs 恢复` and `原计划 vs 新计划` instead of stacking similar-looking text cards.
 
 ## 3. Decisions Made + Reasons
 

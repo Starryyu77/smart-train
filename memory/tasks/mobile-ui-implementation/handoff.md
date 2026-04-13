@@ -11,6 +11,7 @@
 - Added a mobile-first plan adjustment and version diff route at `/coach/students/[studentId]/plan-adjustment`.
 - Localized the current mobile product surfaces into Chinese UI copy.
 - Added a first-time onboarding route at `/coach/getting-started` and linked it from coach home.
+- Reworked the coach mobile layout to make comparisons explicit and reduce text noise across home, athlete detail, session logging, and plan adjustment.
 - Verified the rewritten app with a successful typecheck and production build.
 
 ## Key Decisions
@@ -18,6 +19,7 @@
 - The first implementation slice is coach home, coach athlete detail, student recovery check-in, coach session logging, and plan adjustment / version diff.
 - Plan adjustment is implemented as a diff-and-publish mobile screen before any full editor.
 - Onboarding is implemented as an in-product route, not as external docs.
+- The latest visual pass favors fewer generic cards and more direct comparison structures.
 
 ## Open Issues
 - Session logging and plan adjustment are still seed-data-only and do not persist.

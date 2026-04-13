@@ -20,7 +20,7 @@ export default async function CoachStudentWorkspace({
     <ScreenShell
       label="教练 / 学员"
       title={snapshot.student.name}
-      description="让下一次动作调整变得明确，而不是在聊天记录里翻找依据。"
+      description="先把这次训练和恢复信号比清楚，再决定下一步。"
       leading={
         <Link className="back-link" href="/coach">
           返回
@@ -37,54 +37,54 @@ export default async function CoachStudentWorkspace({
         <p>{snapshot.primaryRisk}</p>
       </section>
 
-      <section className="metric-grid">
-        <MetricTile
-          label="完成度"
-          value={snapshot.latestExecution.adherence}
-          detail="已调整负荷"
-        />
-        <MetricTile
-          label="睡眠"
-          value={snapshot.latestFeedback.sleep}
-          detail="延迟信号"
-          tone="lime"
-        />
-      </section>
-
       <div className="stack">
         <Panel
-          title="最近一次执行"
-          eyebrow={snapshot.latestExecution.completedAt.slice(5, 16).replace("T", " ")}
-          badge={<Badge tone="ghost">已记录</Badge>}
+          title="执行 vs 恢复"
+          eyebrow="先看这两个信号"
+          badge={<Badge tone="ghost">一眼判断</Badge>}
         >
-          <p>{snapshot.latestExecution.note}</p>
-        </Panel>
+          <div className="compare-grid">
+            <section className="compare-cell">
+              <span className="compare-cell__label">最近执行</span>
+              <strong>{snapshot.latestExecution.title}</strong>
+              <div className="mini-stat-list">
+                <div className="mini-stat-row">
+                  <span>时间</span>
+                  <strong>{snapshot.latestExecution.completedAt.slice(5, 16).replace("T", " ")}</strong>
+                </div>
+                <div className="mini-stat-row">
+                  <span>完成度</span>
+                  <strong>{snapshot.latestExecution.adherence}</strong>
+                </div>
+              </div>
+              <p>{snapshot.latestExecution.note}</p>
+            </section>
 
-        <Panel
-          title="最近反馈"
-          eyebrow={snapshot.latestFeedback.submittedAt.slice(5, 16).replace("T", " ")}
-          badge={<Badge tone={snapshot.latestFeedback.painFlag ? "coral" : "ghost"}>{snapshot.latestFeedback.painFlag ? "关注" : "稳定"}</Badge>}
-        >
-          <div className="stat-list">
-            <div className="stat-list__row">
-              <span>睡眠</span>
-              <strong>{snapshot.latestFeedback.sleep}</strong>
-            </div>
-            <div className="stat-list__row">
-              <span>酸痛</span>
-              <strong>{snapshot.latestFeedback.soreness}</strong>
-            </div>
-            <div className="stat-list__row">
-              <span>完成度</span>
-              <strong>{snapshot.latestFeedback.adherence}</strong>
-            </div>
+            <section className="compare-cell compare-cell--accent">
+              <span className="compare-cell__label">最近恢复</span>
+              <strong>{snapshot.latestFeedback.painFlag ? "需要关注" : "基本稳定"}</strong>
+              <div className="mini-stat-list">
+                <div className="mini-stat-row">
+                  <span>睡眠</span>
+                  <strong>{snapshot.latestFeedback.sleep}</strong>
+                </div>
+                <div className="mini-stat-row">
+                  <span>酸痛</span>
+                  <strong>{snapshot.latestFeedback.soreness}</strong>
+                </div>
+                <div className="mini-stat-row">
+                  <span>完成度</span>
+                  <strong>{snapshot.latestFeedback.adherence}</strong>
+                </div>
+              </div>
+              <p>{snapshot.latestFeedback.note}</p>
+            </section>
           </div>
-          <p>{snapshot.latestFeedback.note}</p>
         </Panel>
 
         <Panel
           title="教练判断"
-          eyebrow="下一步"
+          eyebrow="现在该怎么做"
           tone="lime"
         >
           <p>{coachDecision.summary}</p>
@@ -93,7 +93,7 @@ export default async function CoachStudentWorkspace({
 
         <Panel
           title="时间线"
-          eyebrow="证据"
+          eyebrow="只保留关键证据"
           badge={<Badge tone="ghost">{snapshot.timeline.length} 条事件</Badge>}
         >
           <div className="timeline-list">
