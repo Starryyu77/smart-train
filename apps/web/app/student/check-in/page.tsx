@@ -1,8 +1,34 @@
 import Link from "next/link";
-import { ActionLink, Badge, Panel, ScreenShell } from "@/components/ui";
+import { Badge, Panel, ScreenShell } from "@/components/ui";
+import { StudentCheckInForm } from "@/components/student-check-in-form";
+import { DEMO_STUDENT_ID, getLatestStudentFeedback } from "@/lib/demo-feedback-store";
 import { studentCheckInDraft } from "@/lib/sample-data";
 
-export default function StudentCheckInPage() {
+export const dynamic = "force-dynamic";
+
+function parseScaleValue(value: string, fallback: number) {
+  const parsed = Number(value.split("/")[0]);
+  return Number.isFinite(parsed) ? parsed : fallback;
+}
+
+export default async function StudentCheckInPage() {
+  const latestRecord = await getLatestStudentFeedback(DEMO_STUDENT_ID);
+  const initialValues = latestRecord
+    ? {
+        sleep: latestRecord.sleep,
+        soreness: latestRecord.soreness,
+        adherence: latestRecord.adherence,
+        painText: latestRecord.painText,
+        note: latestRecord.note,
+      }
+    : {
+        sleep: parseScaleValue(studentCheckInDraft.prompts[0].value, 5),
+        soreness: parseScaleValue(studentCheckInDraft.prompts[1].value, 4),
+        adherence: 4,
+        painText: studentCheckInDraft.prompts[2].value,
+        note: studentCheckInDraft.note,
+      };
+
   return (
     <ScreenShell
       label="学员端 / 恢复"
@@ -19,30 +45,10 @@ export default function StudentCheckInPage() {
           <div className="progress-meter__fill" style={{ width: `${studentCheckInDraft.progressPercent}%` }} />
         </div>
         <p>{studentCheckInDraft.guidance}</p>
+        {latestRecord ? <p className="meta-caption">上次提交：{new Date(latestRecord.submittedAt).toLocaleString("zh-CN")}</p> : null}
       </Panel>
 
-      <div className="stack">
-        {studentCheckInDraft.prompts.map((prompt) => (
-          <Panel
-            key={prompt.label}
-            title={prompt.label}
-            badge={<Badge tone={prompt.tone}>{prompt.badge}</Badge>}
-          >
-            <p className="response-value">{prompt.value}</p>
-          </Panel>
-        ))}
-
-        <Panel title="备注" eyebrow="可选">
-          <p>{studentCheckInDraft.note}</p>
-        </Panel>
-      </div>
-
-      <div className="stack">
-        <ActionLink href="/student/submitted">提交反馈</ActionLink>
-        <ActionLink href="/student" tone="secondary">
-          返回学员端首页
-        </ActionLink>
-      </div>
+      <StudentCheckInForm initialValues={initialValues} studentId={DEMO_STUDENT_ID} />
     </ScreenShell>
   );
 }

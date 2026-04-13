@@ -31,6 +31,7 @@
 - After user review, reversed the over-explained direction: reduced copy volume on home, onboarding, and athlete detail, and restored onboarding as an explicit top-level action on the coach home screen.
 - Split the demo into two visible product entries: `/coach` stays coach-only, `/student` becomes a separate student-facing app entry, and `/` now acts as the selector between them.
 - Rewrote the athlete `教练判断` block into a stepwise decision card (`当前重点 / 现在结论 / 下一次怎么做 / 如果继续出现`) because the previous abstract copy was too hard to understand.
+- Added a real demo connection between student and coach: the student check-in page now submits a real form to `/api/student-feedback`, the latest submission is persisted into a local `.demo-data` JSON store, and the coach athlete page reads that latest feedback back into the `恢复` block and timeline.
 
 ## 3. Decisions Made + Reasons
 
@@ -44,6 +45,7 @@
 | 6 | Treat the current mobile demo as an action-first product surface, not a documentation-like explainer. | The user explicitly objected to dense text and wanted a more obvious tutorial entry, which means the UI must bias toward short labels, direct actions, and fewer explanatory sentences. | Keep explanatory copy and only polish styling: rejected because it preserves the underlying “too much text” problem. |
 | 7 | Make the student surface a separate visible app entry instead of a page embedded in the coach shell. | The user explicitly said the student side should be seen as its own light app, which requires its own route entry, own mini-flow, and removal from the coach bottom nav. | Keep the student page inside the shared coach navigation: rejected because it collapses both roles into one interface shell. |
 | 8 | Express coach judgment as a decision tree rather than a pair of abstract paragraphs. | The user could not infer the intended action from the old copy, so the UI now needs to say the decision in an operational sequence. | Keep the same logic and only simplify wording slightly: rejected because the information shape was the real problem. |
+| 9 | Use a local file-backed demo feedback store before introducing a real database. | The user needs to see a real submit-and-read-back connection now; a local JSON store is the smallest implementation that makes the student and coach surfaces genuinely connected. | Stay on static seed data: rejected because the student form would still be fake. Jump straight to Postgres: rejected because it adds setup cost before the product loop is proven. |
 
 ## 4. Open Issues
 - The final visual density and copy may still need another pass after the latest typography cleanup is reviewed in-browser.
@@ -53,6 +55,7 @@
 - The onboarding tutorial is still static and not conditionally shown based on first-run state.
 - Coach and student are now separated at the UI level, but still live in one Next.js deployable app rather than two separately deployed frontends.
 - The current decision card is clearer, but the overall athlete page may still need more product-level simplification after user review.
+- The current real connection is still demo-scoped: only the demo student `student_lin` is wired, and persistence is local-file-backed rather than database-backed.
 
 ## 5. Task-Specific Constraints
 - Preserve the approved Web-first baseline.
@@ -60,4 +63,4 @@
 - Every meaningful round of changes should be committed.
 
 ## 6. Next Step
-- Review the new split-entry structure and clearer decision card with the user, then implement real data persistence, publish flows, and first-run state behind the tutorial.
+- Review the new real student-to-coach connection with the user, then replace the local demo store with proper app persistence, publish flows, and first-run state behind the tutorial.

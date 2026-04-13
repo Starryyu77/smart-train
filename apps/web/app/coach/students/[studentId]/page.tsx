@@ -1,29 +1,26 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ActionLink, Badge, BottomNav, Panel, ScreenShell } from "@/components/ui";
-import { coachDecisionByStudentId, workspaceSnapshots } from "@/lib/sample-data";
+import { getConnectedWorkspaceSnapshot } from "@/lib/demo-feedback-store";
+import { coachDecisionByStudentId } from "@/lib/sample-data";
+
+export const dynamic = "force-dynamic";
 
 const STUDENT_PAGE_COPY: Record<
   string,
-  { goal: string; risk: string; execution: string; recovery: string }
+  { goal: string; execution: string }
 > = {
   student_lin: {
     goal: "增肌推进",
-    risk: "腰背观察",
     execution: "RDL 已降重",
-    recovery: "晨起腰背有顶感",
   },
   student_zhou: {
     goal: "恢复规律",
-    risk: "暂不加复杂度",
     execution: "上肢完成稳定",
-    recovery: "恢复平稳",
   },
   student_mei: {
     goal: "重建节奏",
-    risk: "计划待刷新",
     execution: "训练中途结束",
-    recovery: "重返节奏困难",
   },
 };
 
@@ -33,7 +30,7 @@ export default async function CoachStudentWorkspace({
   params: Promise<{ studentId: string }>;
 }) {
   const { studentId } = await params;
-  const snapshot = workspaceSnapshots[studentId];
+  const snapshot = await getConnectedWorkspaceSnapshot(studentId);
   const coachDecision = coachDecisionByStudentId[studentId];
   const pageCopy = STUDENT_PAGE_COPY[studentId];
 
@@ -64,7 +61,7 @@ export default async function CoachStudentWorkspace({
         </section>
         <section className="summary-item summary-item--accent">
           <span className="summary-item__label">风险</span>
-          <p className="summary-item__value">{pageCopy.risk}</p>
+          <p className="summary-item__value">{snapshot.primaryRisk}</p>
         </section>
       </section>
 
@@ -116,7 +113,7 @@ export default async function CoachStudentWorkspace({
                   <span className="mini-stat-row__value">{snapshot.latestFeedback.adherence}</span>
                 </div>
               </div>
-              <p>{pageCopy.recovery}</p>
+              <p>{snapshot.latestFeedback.note}</p>
             </section>
           </div>
         </Panel>

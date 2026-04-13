@@ -568,6 +568,82 @@ p {
   font-weight: 800;
 }
 
+.feedback-form {
+  display: grid;
+  gap: 12px;
+}
+
+.feedback-field {
+  display: grid;
+  gap: 8px;
+  padding: 14px;
+  border-radius: var(--radius-md);
+  background: var(--panel);
+  border: 1px solid var(--line);
+}
+
+.feedback-field__top {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+  color: var(--text);
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.feedback-field__top strong {
+  font-size: 1rem;
+}
+
+.feedback-slider {
+  width: 100%;
+  accent-color: var(--lime);
+}
+
+.feedback-input,
+.feedback-textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--panel-strong);
+  color: var(--text);
+  font: inherit;
+}
+
+.feedback-textarea {
+  resize: vertical;
+}
+
+.feedback-input::placeholder,
+.feedback-textarea::placeholder {
+  color: var(--muted);
+}
+
+.feedback-error {
+  color: var(--coral);
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.action-button {
+  min-height: 56px;
+  padding: 14px 18px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--lime);
+  color: var(--lime-ink);
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.action-button:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
 .log-block-list {
   display: grid;
   gap: 10px;
