@@ -1,7 +1,7 @@
 # Memory Index
 
 - Updated: 2026-04-13
-- Active task: `mobile-ui-implementation`
+- Active task: `server-selection-and-sizing`
 
 ## Project
 - [project.md](project.md)
@@ -12,8 +12,9 @@
 ## Tasks
 - `autoplan-mvp-foundation` - baseline plan
 - `figma-ui-exploration` - archived / superseded by direct code implementation
-- `mobile-ui-implementation` - active
+- `mobile-ui-implementation` - ongoing / paused while hosting planning is active
 - `repo-bootstrap-and-memory` - archived / baseline setup
+- `server-selection-and-sizing` - active
 
 ## Notes
 - This repository is the primary collaboration workspace for the project.
