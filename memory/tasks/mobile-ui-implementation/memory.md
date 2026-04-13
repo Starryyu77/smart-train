@@ -29,6 +29,7 @@
 | 1 | Implement the next design iteration directly in the app rather than in Figma. | The user explicitly asked to stop using Figma and let the code become the source of truth. | Continue iterating only in Figma: rejected because it no longer matches the requested workflow. |
 | 2 | Ship three runnable mobile surfaces first: coach home, coach athlete detail, and student recovery check-in. | They are the smallest set that makes the product direction concrete in code. | Rebuild the whole product shell first: rejected because it would delay visible progress. |
 | 3 | Redirect `/` to `/coach` and treat coach home as the default entry surface. | It keeps the first impression aligned with the coach-first product premise. | Leave a generic root landing page in place: rejected because it weakens the operational product feel. |
+| 4 | Implement session logging before plan adjustment. | It adds the first true evidence-capture workflow without forcing the product into heavier editing complexity too early. | Jump directly to plan editing: rejected because it skips the core session evidence layer. |
 
 ## 4. Open Issues
 - The final visual density and copy may still need another pass after the coded version is reviewed in-browser.

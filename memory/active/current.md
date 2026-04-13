@@ -6,4 +6,4 @@
 
 ## Current Focus
 - Implement the mobile-first product direction directly in the Next.js app.
-- Extend the mobile-first coach flow from athlete detail into session logging, then continue toward plan adjustment.
+- Session logging is now implemented; continue the mobile-first coach flow toward plan adjustment / version diff.
