@@ -19,8 +19,9 @@
 - The plan still needs user approval or overrides on the surfaced taste decisions.
 - `DESIGN.md` still does not exist.
 - No implementation scaffold exists yet.
+- The China delivery surface and hosting approach still need to be confirmed with the user.
 
 ## Next Session Instructions
 - Read the new plan file.
 - Read `TODOS.md`.
-- Capture the user's approval or overrides, then lock the plan as the execution baseline or revise it.
+- Capture the user's approval or overrides, resolve the China delivery-surface recommendation, then lock the plan as the execution baseline or revise it.

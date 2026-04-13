@@ -6,4 +6,4 @@
 
 ## Current Focus
 - Hold the autoplan review output as the current working baseline.
-- Capture user approval or overrides on the surfaced taste decisions.
+- Resolve the China delivery-surface discussion and capture user approval or overrides on the surfaced taste decisions.
