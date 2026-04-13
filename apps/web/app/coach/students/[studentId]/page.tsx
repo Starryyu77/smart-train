@@ -18,12 +18,12 @@ export default async function CoachStudentWorkspace({
 
   return (
     <ScreenShell
-      label="coach / athlete"
+      label="教练 / 学员"
       title={snapshot.student.name}
       description="让下一次动作调整变得明确，而不是在聊天记录里翻找依据。"
       leading={
         <Link className="back-link" href="/coach">
-          Back
+          返回
         </Link>
       }
       footer={<BottomNav active="Athletes" />}
@@ -31,7 +31,7 @@ export default async function CoachStudentWorkspace({
       <section className="hero-panel">
         <div className="row-inline">
           <Badge>{snapshot.student.activeProgramVersion}</Badge>
-          <Badge tone="coral">pain watch</Badge>
+          <Badge tone="coral">疼痛观察</Badge>
         </div>
         <h2>{snapshot.student.currentGoal}</h2>
         <p>{snapshot.primaryRisk}</p>
@@ -39,43 +39,43 @@ export default async function CoachStudentWorkspace({
 
       <section className="metric-grid">
         <MetricTile
-          label="adherence"
+          label="完成度"
           value={snapshot.latestExecution.adherence}
-          detail="load adjusted"
+          detail="已调整负荷"
         />
         <MetricTile
-          label="sleep"
+          label="睡眠"
           value={snapshot.latestFeedback.sleep}
-          detail="late signal"
+          detail="延迟信号"
           tone="lime"
         />
       </section>
 
       <div className="stack">
         <Panel
-          title="Latest execution"
+          title="最近一次执行"
           eyebrow={snapshot.latestExecution.completedAt.slice(5, 16).replace("T", " ")}
-          badge={<Badge tone="ghost">logged</Badge>}
+          badge={<Badge tone="ghost">已记录</Badge>}
         >
           <p>{snapshot.latestExecution.note}</p>
         </Panel>
 
         <Panel
-          title="Latest feedback"
+          title="最近反馈"
           eyebrow={snapshot.latestFeedback.submittedAt.slice(5, 16).replace("T", " ")}
-          badge={<Badge tone={snapshot.latestFeedback.painFlag ? "coral" : "ghost"}>{snapshot.latestFeedback.painFlag ? "watch" : "stable"}</Badge>}
+          badge={<Badge tone={snapshot.latestFeedback.painFlag ? "coral" : "ghost"}>{snapshot.latestFeedback.painFlag ? "关注" : "稳定"}</Badge>}
         >
           <div className="stat-list">
             <div className="stat-list__row">
-              <span>Sleep</span>
+              <span>睡眠</span>
               <strong>{snapshot.latestFeedback.sleep}</strong>
             </div>
             <div className="stat-list__row">
-              <span>Soreness</span>
+              <span>酸痛</span>
               <strong>{snapshot.latestFeedback.soreness}</strong>
             </div>
             <div className="stat-list__row">
-              <span>Adherence</span>
+              <span>完成度</span>
               <strong>{snapshot.latestFeedback.adherence}</strong>
             </div>
           </div>
@@ -83,8 +83,8 @@ export default async function CoachStudentWorkspace({
         </Panel>
 
         <Panel
-          title="Coach decision"
-          eyebrow="next step"
+          title="教练判断"
+          eyebrow="下一步"
           tone="lime"
         >
           <p>{coachDecision.summary}</p>
@@ -92,9 +92,9 @@ export default async function CoachStudentWorkspace({
         </Panel>
 
         <Panel
-          title="Timeline"
-          eyebrow="evidence"
-          badge={<Badge tone="ghost">{snapshot.timeline.length} events</Badge>}
+          title="时间线"
+          eyebrow="证据"
+          badge={<Badge tone="ghost">{snapshot.timeline.length} 条事件</Badge>}
         >
           <div className="timeline-list">
             {snapshot.timeline.map((event) => (
@@ -113,12 +113,12 @@ export default async function CoachStudentWorkspace({
       </div>
 
       <div className="stack">
-        <ActionLink href={`/coach/students/${studentId}/log-session`}>Log session</ActionLink>
+        <ActionLink href={`/coach/students/${studentId}/log-session`}>记录训练</ActionLink>
         <ActionLink href={`/coach/students/${studentId}/plan-adjustment`} tone="secondary">
-          Adjust plan
+          调整计划
         </ActionLink>
         <ActionLink href="/student/check-in" tone="secondary">
-          Open recovery check-in
+          打开恢复反馈
         </ActionLink>
       </div>
     </ScreenShell>

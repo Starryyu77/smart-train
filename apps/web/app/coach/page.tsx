@@ -5,27 +5,27 @@ import { coachHomeSummary, coachQueue, studentSummaries } from "@/lib/sample-dat
 export default function CoachHomePage() {
   return (
     <ScreenShell
-      label="coach / home"
-      title="Today"
+      label="教练 / 今日"
+      title="今日重点"
       description="一个教练应该能在一只手上完成今天的优先级判断。"
       footer={<BottomNav active="Today" />}
     >
       <section className="hero-callout">
-        <Badge tone="ghost">{coachHomeSummary.reviewCount} athletes need review</Badge>
+        <Badge tone="ghost">{coachHomeSummary.reviewCount} 位学员待复核</Badge>
         <h2>{coachHomeSummary.headline}</h2>
         <p>{coachHomeSummary.detail}</p>
       </section>
 
       <section className="metric-grid">
         <MetricTile
-          label="today sessions"
+          label="今日课程"
           value={String(studentSummaries.length + 3)}
-          detail="2 already logged"
+          detail="已记录 2 次"
         />
         <MetricTile
-          label="active alerts"
+          label="风险提醒"
           value="2"
-          detail="1 blocking"
+          detail="1 个阻断"
           tone="lime"
         />
       </section>
@@ -46,4 +46,3 @@ export default function CoachHomePage() {
     </ScreenShell>
   );
 }
-

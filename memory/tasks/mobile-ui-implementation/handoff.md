@@ -9,6 +9,7 @@
 - Added a dedicated coach session logging route at `/coach/students/[studentId]/log-session`.
 - Rewired athlete detail so the primary next action is logging a session.
 - Added a mobile-first plan adjustment and version diff route at `/coach/students/[studentId]/plan-adjustment`.
+- Localized the current mobile product surfaces into Chinese UI copy.
 - Verified the rewritten app with a successful typecheck and production build.
 
 ## Key Decisions

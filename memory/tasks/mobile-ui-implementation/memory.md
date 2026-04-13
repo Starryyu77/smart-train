@@ -23,6 +23,7 @@
 - Rewired the athlete detail screen so the primary next action is logging a session instead of only viewing the student recovery surface.
 - Added the next route in the decision loop: `/coach/students/[studentId]/plan-adjustment`.
 - Connected the flow from session logging into a mobile-first version diff and publish screen.
+- Localized all current user-facing mobile UI copy into Chinese so the product demo surfaces no longer mix Chinese and English labels.
 
 ## 3. Decisions Made + Reasons
 

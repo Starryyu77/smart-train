@@ -10,6 +10,13 @@ const CHANGE_TONE_TO_BADGE: Record<string, "lime" | "coral" | "ghost" | "default
   focus: "default",
 };
 
+const CHANGE_TONE_LABEL: Record<string, string> = {
+  increase: "增加",
+  decrease: "降低",
+  hold: "保持",
+  focus: "关注点",
+};
+
 export default async function CoachPlanAdjustmentPage({
   params,
 }: {
@@ -25,12 +32,12 @@ export default async function CoachPlanAdjustmentPage({
 
   return (
     <ScreenShell
-      label="coach / plan"
+      label="教练 / 计划"
       title={planDraft.nextVersion}
       description="版本调整应该是一页内做完的判断，不该退化成重型编辑器。"
       leading={
         <Link className="back-link" href={`/coach/students/${studentId}/log-session`}>
-          Back
+          返回
         </Link>
       }
       footer={<BottomNav active="Athletes" />}
@@ -45,12 +52,12 @@ export default async function CoachPlanAdjustmentPage({
 
         <div className="version-rail">
           <div className="version-rail__item">
-            <span className="meta-caption">base</span>
+            <span className="meta-caption">当前版</span>
             <strong>{planDraft.baseVersion}</strong>
           </div>
           <div className="version-rail__arrow">→</div>
           <div className="version-rail__item version-rail__item--next">
-            <span className="meta-caption">next</span>
+            <span className="meta-caption">下一版</span>
             <strong>{planDraft.nextVersion}</strong>
           </div>
         </div>
@@ -58,12 +65,12 @@ export default async function CoachPlanAdjustmentPage({
 
       <section className="metric-grid">
         <MetricTile
-          label="linked session"
+          label="来源训练"
           value={planDraft.basedOnSession}
           detail={snapshot.latestExecution.adherence}
         />
         <MetricTile
-          label="review window"
+          label="复核窗口"
           value={planDraft.reviewWindow}
           detail={planDraft.focusArea}
           tone="lime"
@@ -71,15 +78,15 @@ export default async function CoachPlanAdjustmentPage({
       </section>
 
       <div className="stack">
-        <Panel title="Why this version changes" eyebrow="evidence" badge={<Badge tone="ghost">diff-first</Badge>}>
+        <Panel title="为什么要改这个版本" eyebrow="证据" badge={<Badge tone="ghost">先看差异</Badge>}>
           <p className="panel-emphasis">{planDraft.evidenceSummary}</p>
           <p>{planDraft.reasonDetail}</p>
         </Panel>
 
         <Panel
-          title="Version diff"
-          eyebrow="changes"
-          badge={<Badge tone="ghost">{planDraft.changes.length} edits</Badge>}
+          title="版本差异"
+          eyebrow="变更"
+          badge={<Badge tone="ghost">{planDraft.changes.length} 处改动</Badge>}
         >
           <div className="change-list">
             {planDraft.changes.map((change) => (
@@ -89,16 +96,16 @@ export default async function CoachPlanAdjustmentPage({
                     <strong>{change.exerciseLabel}</strong>
                     <p className="meta-caption">{change.sessionLabel}</p>
                   </div>
-                  <Badge tone={CHANGE_TONE_TO_BADGE[change.tone]}>{change.tone}</Badge>
+                  <Badge tone={CHANGE_TONE_TO_BADGE[change.tone]}>{CHANGE_TONE_LABEL[change.tone]}</Badge>
                 </div>
                 <div className="diff-pair">
                   <div className="diff-pair__side">
-                    <span className="meta-caption">from</span>
+                    <span className="meta-caption">原计划</span>
                     <p>{change.fromValue}</p>
                   </div>
                   <div className="diff-pair__divider">→</div>
                   <div className="diff-pair__side diff-pair__side--next">
-                    <span className="meta-caption">to</span>
+                    <span className="meta-caption">新计划</span>
                     <p>{change.toValue}</p>
                   </div>
                 </div>
@@ -108,7 +115,7 @@ export default async function CoachPlanAdjustmentPage({
           </div>
         </Panel>
 
-        <Panel title="Publish checklist" eyebrow="guardrails" tone="lime">
+        <Panel title="发布检查" eyebrow="守门条件" tone="lime">
           <div className="check-list">
             {planDraft.checklist.map((item) => (
               <div className="check-list__item" key={item}>
@@ -122,9 +129,9 @@ export default async function CoachPlanAdjustmentPage({
       </div>
 
       <div className="stack">
-        <ActionLink href={`/coach/students/${studentId}`}>Publish {planDraft.nextVersion}</ActionLink>
+        <ActionLink href={`/coach/students/${studentId}`}>发布 {planDraft.nextVersion}</ActionLink>
         <ActionLink href="/student/check-in" tone="secondary">
-          Open linked recovery flow
+          打开关联恢复反馈
         </ActionLink>
       </div>
     </ScreenShell>

@@ -114,18 +114,18 @@ export function ActionLink({
 
 export function BottomNav({ active }: { active: "Today" | "Athletes" | "Check-in" }) {
   const items = [
-    { label: "Today", href: "/coach" },
-    { label: "Athletes", href: "/coach/students/student_lin" },
-    { label: "Check-in", href: "/student/check-in" },
+    { key: "Today", label: "今日", href: "/coach" },
+    { key: "Athletes", label: "学员", href: "/coach/students/student_lin" },
+    { key: "Check-in", label: "反馈", href: "/student/check-in" },
   ] as const;
 
   return (
-    <nav className="bottom-nav" aria-label="Primary">
+    <nav className="bottom-nav" aria-label="主导航">
       {items.map((item) => (
         <Link
-          className={`bottom-nav__item ${item.label === active ? "bottom-nav__item--active" : ""}`}
+          className={`bottom-nav__item ${item.key === active ? "bottom-nav__item--active" : ""}`}
           href={item.href}
-          key={item.label}
+          key={item.key}
         >
           {item.label}
         </Link>
@@ -133,4 +133,3 @@ export function BottomNav({ active }: { active: "Today" | "Athletes" | "Check-in
     </nav>
   );
 }
-

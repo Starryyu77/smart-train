@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Smart Training Workbench",
-  description: "Coach-first training operations workspace",
+  title: "智能训练工作台",
+  description: "以教练为中心的训练运营工作台",
 };
 
 export default function RootLayout({
@@ -17,4 +17,3 @@ export default function RootLayout({
     </html>
   );
 }
-
