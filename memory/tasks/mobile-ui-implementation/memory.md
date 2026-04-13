@@ -24,6 +24,7 @@
 - Added the next route in the decision loop: `/coach/students/[studentId]/plan-adjustment`.
 - Connected the flow from session logging into a mobile-first version diff and publish screen.
 - Localized all current user-facing mobile UI copy into Chinese so the product demo surfaces no longer mix Chinese and English labels.
+- Added a first-time coach onboarding tutorial at `/coach/getting-started` and exposed it from the coach home screen.
 
 ## 3. Decisions Made + Reasons
 
@@ -38,6 +39,7 @@
 - The final visual density and copy may still need another pass after the coded version is reviewed in-browser.
 - Session logging and plan adjustment are still powered by seed data and do not persist.
 - No real plan publish mutation exists yet; the current route is a product-shape prototype.
+- The onboarding tutorial is still static and not conditionally shown based on first-run state.
 
 ## 5. Task-Specific Constraints
 - Preserve the approved Web-first baseline.
@@ -45,4 +47,4 @@
 - Every meaningful round of changes should be committed.
 
 ## 6. Next Step
-- Review the coded mobile surfaces with the user, then implement real data persistence and publish flows behind session logging and plan adjustment.
+- Review the onboarding flow and coded mobile surfaces with the user, then implement real data persistence, publish flows, and first-run state behind the tutorial.

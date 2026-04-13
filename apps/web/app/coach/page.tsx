@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Badge, BottomNav, MetricTile, Panel, ScreenShell } from "@/components/ui";
+import { ActionLink, Badge, BottomNav, MetricTile, Panel, ScreenShell } from "@/components/ui";
 import { coachHomeSummary, coachQueue, studentSummaries } from "@/lib/sample-data";
 
 export default function CoachHomePage() {
@@ -15,6 +15,11 @@ export default function CoachHomePage() {
         <h2>{coachHomeSummary.headline}</h2>
         <p>{coachHomeSummary.detail}</p>
       </section>
+
+      <Panel title="第一次使用？" eyebrow="新手引导" badge={<Badge tone="ghost">30 秒</Badge>}>
+        <p>先看一遍“今日页 到 学员页 到 记录训练 到 调整计划 到 学员反馈”的顺序，你就知道这个产品怎么用了。</p>
+        <ActionLink href="/coach/getting-started">打开新手教程</ActionLink>
+      </Panel>
 
       <section className="metric-grid">
         <MetricTile
