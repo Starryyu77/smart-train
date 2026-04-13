@@ -106,6 +106,34 @@ export interface SessionLogDraft {
   blocks: SessionLogBlock[];
 }
 
+export type PlanAdjustmentChangeTone = "increase" | "decrease" | "hold" | "focus";
+
+export interface PlanAdjustmentChange {
+  id: string;
+  sessionLabel: string;
+  exerciseLabel: string;
+  fromValue: string;
+  toValue: string;
+  tone: PlanAdjustmentChangeTone;
+  reason: string;
+}
+
+export interface PlanAdjustmentDraft {
+  studentId: string;
+  basedOnSession: string;
+  baseVersion: string;
+  nextVersion: string;
+  publishStatus: string;
+  reasonHeadline: string;
+  reasonDetail: string;
+  evidenceSummary: string;
+  focusArea: string;
+  reviewWindow: string;
+  publishNote: string;
+  checklist: string[];
+  changes: PlanAdjustmentChange[];
+}
+
 export interface StudentWorkspaceSnapshot {
   student: StudentSummary;
   currentPhase: string;

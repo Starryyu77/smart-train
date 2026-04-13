@@ -21,6 +21,8 @@
 - Verified the implementation with `npm run typecheck` and `npm run build`.
 - Added the next core coach workflow: `/coach/students/[studentId]/log-session`.
 - Rewired the athlete detail screen so the primary next action is logging a session instead of only viewing the student recovery surface.
+- Added the next route in the decision loop: `/coach/students/[studentId]/plan-adjustment`.
+- Connected the flow from session logging into a mobile-first version diff and publish screen.
 
 ## 3. Decisions Made + Reasons
 
@@ -33,8 +35,8 @@
 
 ## 4. Open Issues
 - The final visual density and copy may still need another pass after the coded version is reviewed in-browser.
-- Plan adjustment is not implemented yet.
-- Session logging is still powered by seed data and does not persist.
+- Session logging and plan adjustment are still powered by seed data and do not persist.
+- No real plan publish mutation exists yet; the current route is a product-shape prototype.
 
 ## 5. Task-Specific Constraints
 - Preserve the approved Web-first baseline.
@@ -42,4 +44,4 @@
 - Every meaningful round of changes should be committed.
 
 ## 6. Next Step
-- Review the coded mobile surfaces with the user, then implement the next highest-value route after session logging: plan adjustment / version diff.
+- Review the coded mobile surfaces with the user, then implement real data persistence and publish flows behind session logging and plan adjustment.

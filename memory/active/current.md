@@ -6,4 +6,4 @@
 
 ## Current Focus
 - Implement the mobile-first product direction directly in the Next.js app.
-- Session logging is now implemented; continue the mobile-first coach flow toward plan adjustment / version diff.
+- Session logging and plan adjustment are now implemented as product-shape routes; continue toward persistence and real publish behavior.

@@ -114,6 +114,9 @@ export default async function CoachStudentWorkspace({
 
       <div className="stack">
         <ActionLink href={`/coach/students/${studentId}/log-session`}>Log session</ActionLink>
+        <ActionLink href={`/coach/students/${studentId}/plan-adjustment`} tone="secondary">
+          Adjust plan
+        </ActionLink>
         <ActionLink href="/student/check-in" tone="secondary">
           Open recovery check-in
         </ActionLink>

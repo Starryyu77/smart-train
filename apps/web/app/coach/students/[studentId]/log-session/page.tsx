@@ -127,9 +127,9 @@ export default async function CoachStudentLogSessionPage({
       </div>
 
       <div className="stack">
-        <ActionLink href="/student/check-in">Finish and request recovery</ActionLink>
-        <ActionLink href={`/coach/students/${studentId}`} tone="secondary">
-          Save draft and return
+        <ActionLink href={`/coach/students/${studentId}/plan-adjustment`}>Adjust next plan</ActionLink>
+        <ActionLink href="/student/check-in" tone="secondary">
+          Request recovery
         </ActionLink>
       </div>
     </ScreenShell>
