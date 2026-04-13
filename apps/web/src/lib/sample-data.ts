@@ -260,23 +260,29 @@ export const workspaceSnapshots: Record<string, StudentWorkspaceSnapshot> = {
 export const coachDecisionByStudentId: Record<
   string,
   {
-    summary: string;
-    action: string;
+    focus: string;
+    decision: string;
+    nextStep: string;
+    ifTriggered: string;
   }
 > = {
   student_lin: {
-    summary:
-      "现在不需要更多图表，而是需要明确判断下一次下肢课是否还能继续上调负荷。",
-    action:
-      "下一次下肢训练前复核疼痛是否连续出现；若继续出现，暂停负荷上调并重做恢复判断。",
+    focus: "先判断这次腰背信号会不会连续出现。",
+    decision: "下一次下肢课先不要加重量。",
+    nextStep: "按当前重量再做一次，并继续看训练后和第二天早上的疼痛反馈。",
+    ifTriggered: "如果下一次还疼，就暂停上调负荷，先重做恢复判断。",
   },
   student_zhou: {
-    summary: "当前证据支持小步进阶，但不需要切换到更复杂的动作结构。",
-    action: "保留当前节奏，在下次上肢训练里只增加一个最小进阶变量。",
+    focus: "当前状态稳定，可以试一次最小进阶。",
+    decision: "下次上肢课只加一个小变量。",
+    nextStep: "保持动作不变，只小幅增加一次重量或组数。",
+    ifTriggered: "如果完成度下降，就回到当前版本，不继续加。",
   },
   student_mei: {
-    summary: "这里的核心不是强度，而是把训练连续性重新搭起来。",
-    action: "把下一次课收窄成更容易完成的版本，并在 7 天内强制刷新计划版本。",
+    focus: "现在先把训练连续性救回来，不追求强度。",
+    decision: "下一次课做一个更容易完成的缩短版。",
+    nextStep: "把胜利条件改成完成前 2 个动作块，而不是做完整节课。",
+    ifTriggered: "如果 7 天内还没完成，就必须刷新计划版本。",
   },
 };
 

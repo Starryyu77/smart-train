@@ -122,8 +122,24 @@ export default async function CoachStudentWorkspace({
         </Panel>
 
         <Panel title="教练判断" eyebrow="现在该怎么做" tone="lime">
-          <p>{coachDecision.summary}</p>
-          <p className="panel-emphasis">{coachDecision.action}</p>
+          <div className="decision-list">
+            <section className="decision-item">
+              <span className="decision-item__label">当前重点</span>
+              <p className="decision-item__value">{coachDecision.focus}</p>
+            </section>
+            <section className="decision-item">
+              <span className="decision-item__label">现在结论</span>
+              <p className="decision-item__value">{coachDecision.decision}</p>
+            </section>
+            <section className="decision-item">
+              <span className="decision-item__label">下一次怎么做</span>
+              <p>{coachDecision.nextStep}</p>
+            </section>
+            <section className="decision-item">
+              <span className="decision-item__label">如果继续出现</span>
+              <p>{coachDecision.ifTriggered}</p>
+            </section>
+          </div>
         </Panel>
 
         <Panel

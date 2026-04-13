@@ -16,6 +16,7 @@
 - Flattened the home and athlete detail typography hierarchy so each block has one clear focal line instead of multiple competing emphasis sizes.
 - Reduced copy further after user feedback, restored onboarding as an explicit home entry, and shortened the athlete detail page into a more action-first mobile surface.
 - Split the product demo into two visible entries: coach pages remain under coach navigation, while the student side now has its own `/student` entry, its own `/student/check-in` flow, and a dedicated submitted state.
+- Replaced the old coach judgment paragraph with a clearer decision card so the athlete page now states the focus, current conclusion, next step, and fallback explicitly.
 - Verified the rewritten app with a successful typecheck and production build.
 
 ## Key Decisions
@@ -27,6 +28,7 @@
 - The latest typography pass favors one dominant line per block and de-emphasizes secondary labels, values, and CTAs.
 - The latest product pass favors obvious entry actions and short phrases over explanatory copy.
 - The latest surface split favors distinct role-based entry points over one mixed app shell.
+- The latest athlete decision pass favors explicit operational steps over abstract narrative copy.
 
 ## Open Issues
 - Session logging and plan adjustment are still seed-data-only and do not persist.
@@ -35,5 +37,5 @@
 
 ## Next Session Instructions
 - Read `DESIGN.md` and `docs/ARCHITECTURE.md`.
-- Review the current split routes with the user, focusing on whether `/`, `/coach`, and `/student` now make the coach and student sides feel properly separated.
+- Review the current split routes with the user, focusing on whether `/`, `/coach`, `/student`, and the athlete decision card now make the flow clearer and more product-like.
 - Continue by wiring persistence and real publish behavior behind session logging and plan adjustment, then make onboarding stateful.

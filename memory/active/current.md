@@ -6,4 +6,4 @@
 
 ## Current Focus
 - Implement the mobile-first product direction directly in the Next.js app.
-- Session logging, plan adjustment, onboarding, and the new split coach / student entry structure are now implemented; continue toward persistence, real publish behavior, and first-run state.
+- Session logging, plan adjustment, onboarding, the split coach / student entry structure, and the clearer athlete decision card are now implemented; continue toward persistence, real publish behavior, and first-run state.

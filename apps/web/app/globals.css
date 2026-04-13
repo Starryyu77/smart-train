@@ -539,6 +539,35 @@ p {
   border-top: 1px solid var(--line);
 }
 
+.decision-list {
+  display: grid;
+  gap: 10px;
+}
+
+.decision-item {
+  display: grid;
+  gap: 4px;
+}
+
+.decision-item + .decision-item {
+  padding-top: 10px;
+  border-top: 1px solid rgba(18, 23, 20, 0.12);
+}
+
+.decision-item__label {
+  color: rgba(18, 23, 20, 0.68);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.decision-item__value {
+  color: var(--lime-ink);
+  font-size: 1rem;
+  line-height: 1.32;
+  font-weight: 800;
+}
+
 .log-block-list {
   display: grid;
   gap: 10px;

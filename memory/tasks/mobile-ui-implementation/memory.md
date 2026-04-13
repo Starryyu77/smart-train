@@ -30,6 +30,7 @@
 - Flattened the typography hierarchy on the coach home screen and athlete detail screen so each content block now has a single dominant text line instead of multiple competing emphasis styles.
 - After user review, reversed the over-explained direction: reduced copy volume on home, onboarding, and athlete detail, and restored onboarding as an explicit top-level action on the coach home screen.
 - Split the demo into two visible product entries: `/coach` stays coach-only, `/student` becomes a separate student-facing app entry, and `/` now acts as the selector between them.
+- Rewrote the athlete `教练判断` block into a stepwise decision card (`当前重点 / 现在结论 / 下一次怎么做 / 如果继续出现`) because the previous abstract copy was too hard to understand.
 
 ## 3. Decisions Made + Reasons
 
@@ -42,6 +43,7 @@
 | 5 | Reduce mixed-size emphasis inside home, onboarding, and athlete blocks instead of only tweaking font sizes globally. | The user’s discomfort came from multiple “headline-like” elements competing within one card, so the fix needed structural hierarchy changes. | Only shrink the largest text: rejected because it would keep the hierarchy conflict intact. |
 | 6 | Treat the current mobile demo as an action-first product surface, not a documentation-like explainer. | The user explicitly objected to dense text and wanted a more obvious tutorial entry, which means the UI must bias toward short labels, direct actions, and fewer explanatory sentences. | Keep explanatory copy and only polish styling: rejected because it preserves the underlying “too much text” problem. |
 | 7 | Make the student surface a separate visible app entry instead of a page embedded in the coach shell. | The user explicitly said the student side should be seen as its own light app, which requires its own route entry, own mini-flow, and removal from the coach bottom nav. | Keep the student page inside the shared coach navigation: rejected because it collapses both roles into one interface shell. |
+| 8 | Express coach judgment as a decision tree rather than a pair of abstract paragraphs. | The user could not infer the intended action from the old copy, so the UI now needs to say the decision in an operational sequence. | Keep the same logic and only simplify wording slightly: rejected because the information shape was the real problem. |
 
 ## 4. Open Issues
 - The final visual density and copy may still need another pass after the latest typography cleanup is reviewed in-browser.
@@ -50,6 +52,7 @@
 - No real plan publish mutation exists yet; the current route is a product-shape prototype.
 - The onboarding tutorial is still static and not conditionally shown based on first-run state.
 - Coach and student are now separated at the UI level, but still live in one Next.js deployable app rather than two separately deployed frontends.
+- The current decision card is clearer, but the overall athlete page may still need more product-level simplification after user review.
 
 ## 5. Task-Specific Constraints
 - Preserve the approved Web-first baseline.
@@ -57,4 +60,4 @@
 - Every meaningful round of changes should be committed.
 
 ## 6. Next Step
-- Review the new split-entry coach/student structure with the user, then implement real data persistence, publish flows, and first-run state behind the tutorial.
+- Review the new split-entry structure and clearer decision card with the user, then implement real data persistence, publish flows, and first-run state behind the tutorial.
