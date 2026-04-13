@@ -33,7 +33,6 @@
 | 4 | Lock the approved implementation baseline to one deployable Next.js web app plus internal packages. | It matches the reviewed plan, keeps boundaries explicit, and gets the repository into a buildable state quickly. | Early multi-app split: rejected because there is still no production workload proving that complexity is justified. |
 
 ## 4. Open Issues
-- The repository scaffold still needs dependency installation and runtime verification.
 - Real auth, database schema, and draft recovery are not implemented yet.
 - The deployment path still needs to be chosen for the first public environment: mainland-hosted and filed, or offshore private pilot first then mainland later.
 

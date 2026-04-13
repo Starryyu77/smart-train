@@ -6,4 +6,4 @@
 
 ## Current Focus
 - Execute Phase 1 repository and platform foundations against the approved Web-first baseline.
-- Validate the new scaffold, then move into auth and database groundwork.
+- Move from the validated scaffold into auth and database groundwork.
