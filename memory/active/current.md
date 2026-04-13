@@ -1,9 +1,9 @@
 # Active Task
 
-- Task ID: autoplan-mvp-foundation
-- Task path: `memory/tasks/autoplan-mvp-foundation/`
+- Task ID: figma-ui-exploration
+- Task path: `memory/tasks/figma-ui-exploration/`
 - Updated: 2026-04-13
 
 ## Current Focus
-- Execute Phase 1 repository and platform foundations against the approved Web-first baseline.
-- Move from the validated scaffold into auth and database groundwork.
+- Review the first Figma UI exploration board for the approved Web-first product baseline.
+- Capture user feedback and choose the next core screen to design.

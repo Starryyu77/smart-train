@@ -1,7 +1,7 @@
 # Memory Index
 
 - Updated: 2026-04-13
-- Active task: `autoplan-mvp-foundation`
+- Active task: `figma-ui-exploration`
 
 ## Project
 - [project.md](project.md)
@@ -11,6 +11,7 @@
 
 ## Tasks
 - `autoplan-mvp-foundation` - active
+- `figma-ui-exploration` - active
 - `repo-bootstrap-and-memory` - archived / baseline setup
 
 ## Notes
