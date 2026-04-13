@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ActionLink, Badge, BottomNav, MetricTile, Panel, ScreenShell } from "@/components/ui";
+import { Badge, BottomNav, Panel, ScreenShell } from "@/components/ui";
 import { coachHomeSummary, coachQueue, studentSummaries } from "@/lib/sample-data";
 
 export default function CoachHomePage() {
@@ -10,16 +10,16 @@ export default function CoachHomePage() {
       description="不要先翻历史，从今天需要你判断的人开始。"
       footer={<BottomNav active="Today" />}
     >
-      <section className="hero-callout hero-callout--tight">
-        <div className="row-inline">
-          <Badge tone="ghost">{coachHomeSummary.reviewCount} 位学员待复核</Badge>
-          <Link className="text-link" href="/coach/getting-started">
-            新手教程
-          </Link>
-        </div>
-        <h2>{coachHomeSummary.headline}</h2>
+      <Panel
+        title="先从待复核学员开始"
+        eyebrow="今天怎么开始"
+        badge={<Badge tone="ghost">{coachHomeSummary.reviewCount} 位待复核</Badge>}
+      >
         <p>{coachHomeSummary.detail}</p>
-      </section>
+        <Link className="text-link" href="/coach/getting-started">
+          打开新手教程
+        </Link>
+      </Panel>
 
       <section className="signal-strip">
         <div className="signal-chip">
@@ -49,11 +49,8 @@ export default function CoachHomePage() {
               </div>
               <Badge tone={item.tone}>{item.status}</Badge>
             </div>
-            <div className="queue-card__reason">
-              <span className="queue-card__label">为什么现在看</span>
-              <p>{item.summary}</p>
-            </div>
-            <span className="queue-card__cta">进入学员页</span>
+            <p className="queue-card__summary">{item.summary}</p>
+            <span className="queue-card__cta">查看学员页</span>
           </Link>
         ))}
       </div>

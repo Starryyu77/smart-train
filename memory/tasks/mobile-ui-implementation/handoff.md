@@ -12,6 +12,8 @@
 - Localized the current mobile product surfaces into Chinese UI copy.
 - Added a first-time onboarding route at `/coach/getting-started` and linked it from coach home.
 - Reworked the coach mobile layout to make comparisons explicit and reduce text noise across home, athlete detail, session logging, and plan adjustment.
+- Tightened the onboarding page typography to reduce mixed-size text inside the same block.
+- Flattened the home and athlete detail typography hierarchy so each block has one clear focal line instead of multiple competing emphasis sizes.
 - Verified the rewritten app with a successful typecheck and production build.
 
 ## Key Decisions
@@ -20,6 +22,7 @@
 - Plan adjustment is implemented as a diff-and-publish mobile screen before any full editor.
 - Onboarding is implemented as an in-product route, not as external docs.
 - The latest visual pass favors fewer generic cards and more direct comparison structures.
+- The latest typography pass favors one dominant line per block and de-emphasizes secondary labels, values, and CTAs.
 
 ## Open Issues
 - Session logging and plan adjustment are still seed-data-only and do not persist.
@@ -28,5 +31,5 @@
 
 ## Next Session Instructions
 - Read `DESIGN.md` and `docs/ARCHITECTURE.md`.
-- Review the current mobile routes with the user.
+- Review the current mobile routes with the user, focusing on whether the typography now feels calmer on `/coach`, `/coach/getting-started`, and `/coach/students/student_lin`.
 - Continue by wiring persistence and real publish behavior behind session logging and plan adjustment, then make onboarding stateful.

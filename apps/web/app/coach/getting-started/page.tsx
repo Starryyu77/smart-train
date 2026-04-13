@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ActionLink, Badge, BottomNav, Panel, ScreenShell } from "@/components/ui";
+import { Badge, BottomNav, Panel, ScreenShell } from "@/components/ui";
 
 const steps = [
   {
@@ -67,20 +67,14 @@ export default function CoachGettingStartedPage() {
       }
       footer={<BottomNav active="Today" />}
     >
-      <section className="hero-callout">
-        <Badge tone="ghost">推荐顺序</Badge>
-        <h2>先判断，再记录，再调整。</h2>
-        <p>这个产品不是让你填很多表，而是把一次训练决策链路收紧成清晰的 5 步。</p>
-      </section>
-
-      <Panel title="你真正要做的事" eyebrow="30 秒理解" tone="lime">
-        <p className="panel-emphasis">看今天该处理谁，到看这个学员发生了什么，到记录训练，到调整下一版，再到收回恢复反馈。</p>
-        <p>只要你按这个顺序看，界面就不会乱。</p>
+      <Panel title="先照这个顺序走" eyebrow="30 秒理解" tone="lime" badge={<Badge tone="ghost">推荐顺序</Badge>}>
+        <p>今天先看谁，再看这个学员发生了什么，然后记录训练、调整下一版，最后再收回恢复反馈。</p>
+        <p>你把它当成一个 5 步流程，而不是 5 张独立页面，就不会乱。</p>
       </Panel>
 
       <div className="guide-step-list">
         {steps.map((step) => (
-          <section className="guide-step" key={step.id}>
+          <Link className="guide-step" href={step.href} key={step.id}>
             <div className="guide-step__top">
               <span className="guide-step__index">{step.id}</span>
               <div className="stack-tight">
@@ -88,10 +82,8 @@ export default function CoachGettingStartedPage() {
                 <p>{step.detail}</p>
               </div>
             </div>
-            <ActionLink href={step.href} tone={step.id === "01" ? "primary" : "secondary"}>
-              {step.ctaLabel}
-            </ActionLink>
-          </section>
+            <span className="guide-step__link">{step.ctaLabel}</span>
+          </Link>
         ))}
       </div>
 

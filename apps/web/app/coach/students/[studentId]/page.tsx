@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ActionLink, Badge, BottomNav, MetricTile, Panel, ScreenShell } from "@/components/ui";
+import { ActionLink, Badge, BottomNav, Panel, ScreenShell } from "@/components/ui";
 import { coachDecisionByStudentId, workspaceSnapshots } from "@/lib/sample-data";
 
 export default async function CoachStudentWorkspace({
@@ -28,13 +28,19 @@ export default async function CoachStudentWorkspace({
       }
       footer={<BottomNav active="Athletes" />}
     >
-      <section className="hero-panel">
+      <section className="summary-card">
         <div className="row-inline">
           <Badge>{snapshot.student.activeProgramVersion}</Badge>
           <Badge tone="coral">疼痛观察</Badge>
         </div>
-        <h2>{snapshot.student.currentGoal}</h2>
-        <p>{snapshot.primaryRisk}</p>
+        <section className="summary-item">
+          <span className="summary-item__label">当前目标</span>
+          <p className="summary-item__value">{snapshot.student.currentGoal}</p>
+        </section>
+        <section className="summary-item summary-item--accent">
+          <span className="summary-item__label">当前风险</span>
+          <p className="summary-item__value">{snapshot.primaryRisk}</p>
+        </section>
       </section>
 
       <div className="stack">
@@ -45,36 +51,44 @@ export default async function CoachStudentWorkspace({
         >
           <div className="compare-grid">
             <section className="compare-cell">
-              <span className="compare-cell__label">最近执行</span>
-              <strong>{snapshot.latestExecution.title}</strong>
+              <div className="compare-cell__summary">
+                <span className="compare-cell__label">最近执行</span>
+                <p className="compare-cell__headline">{snapshot.latestExecution.title}</p>
+              </div>
               <div className="mini-stat-list">
                 <div className="mini-stat-row">
                   <span>时间</span>
-                  <strong>{snapshot.latestExecution.completedAt.slice(5, 16).replace("T", " ")}</strong>
+                  <span className="mini-stat-row__value">
+                    {snapshot.latestExecution.completedAt.slice(5, 16).replace("T", " ")}
+                  </span>
                 </div>
                 <div className="mini-stat-row">
                   <span>完成度</span>
-                  <strong>{snapshot.latestExecution.adherence}</strong>
+                  <span className="mini-stat-row__value">{snapshot.latestExecution.adherence}</span>
                 </div>
               </div>
               <p>{snapshot.latestExecution.note}</p>
             </section>
 
             <section className="compare-cell compare-cell--accent">
-              <span className="compare-cell__label">最近恢复</span>
-              <strong>{snapshot.latestFeedback.painFlag ? "需要关注" : "基本稳定"}</strong>
+              <div className="compare-cell__summary">
+                <span className="compare-cell__label">最近恢复</span>
+                <p className="compare-cell__headline">
+                  {snapshot.latestFeedback.painFlag ? "需要关注" : "基本稳定"}
+                </p>
+              </div>
               <div className="mini-stat-list">
                 <div className="mini-stat-row">
                   <span>睡眠</span>
-                  <strong>{snapshot.latestFeedback.sleep}</strong>
+                  <span className="mini-stat-row__value">{snapshot.latestFeedback.sleep}</span>
                 </div>
                 <div className="mini-stat-row">
                   <span>酸痛</span>
-                  <strong>{snapshot.latestFeedback.soreness}</strong>
+                  <span className="mini-stat-row__value">{snapshot.latestFeedback.soreness}</span>
                 </div>
                 <div className="mini-stat-row">
                   <span>完成度</span>
-                  <strong>{snapshot.latestFeedback.adherence}</strong>
+                  <span className="mini-stat-row__value">{snapshot.latestFeedback.adherence}</span>
                 </div>
               </div>
               <p>{snapshot.latestFeedback.note}</p>
@@ -82,11 +96,7 @@ export default async function CoachStudentWorkspace({
           </div>
         </Panel>
 
-        <Panel
-          title="教练判断"
-          eyebrow="现在该怎么做"
-          tone="lime"
-        >
+        <Panel title="教练判断" eyebrow="现在该怎么做" tone="lime">
           <p>{coachDecision.summary}</p>
           <p className="panel-emphasis">{coachDecision.action}</p>
         </Panel>
@@ -103,7 +113,7 @@ export default async function CoachStudentWorkspace({
                   {event.occurredAt.slice(5, 16).replace("T", " ")}
                 </span>
                 <div className="stack-tight">
-                  <strong>{event.title}</strong>
+                  <p className="timeline-list__title">{event.title}</p>
                   <p>{event.detail}</p>
                 </div>
               </div>
