@@ -1,6 +1,7 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Hero, Section, StatusPill } from "@/components/ui";
-import { workspaceSnapshots } from "@/lib/sample-data";
+import { ActionLink, Badge, BottomNav, MetricTile, Panel, ScreenShell } from "@/components/ui";
+import { coachDecisionByStudentId, studentCheckInDraft, workspaceSnapshots } from "@/lib/sample-data";
 
 export default async function CoachStudentWorkspace({
   params,
@@ -9,119 +10,115 @@ export default async function CoachStudentWorkspace({
 }) {
   const { studentId } = await params;
   const snapshot = workspaceSnapshots[studentId];
+  const coachDecision = coachDecisionByStudentId[studentId];
 
-  if (!snapshot) {
+  if (!snapshot || !coachDecision) {
     notFound();
   }
 
   return (
-    <main className="page-stack">
-      <Hero
-        eyebrow="Coach workspace"
-        title={snapshot.student.name}
-        description={`${snapshot.currentPhase} · ${snapshot.student.currentGoal}`}
-      >
-        <div className="nav-links">
-          <span className="nav-link">Active plan: {snapshot.student.activeProgramVersion}</span>
-          <span className="nav-link">Primary risk: {snapshot.primaryRisk}</span>
+    <ScreenShell
+      label="coach / athlete"
+      title={snapshot.student.name}
+      description="让下一次动作调整变得明确，而不是在聊天记录里翻找依据。"
+      leading={
+        <Link className="back-link" href="/coach">
+          Back
+        </Link>
+      }
+      footer={<BottomNav active="Athletes" />}
+    >
+      <section className="hero-panel">
+        <div className="row-inline">
+          <Badge>{snapshot.student.activeProgramVersion}</Badge>
+          <Badge tone="coral">pain watch</Badge>
         </div>
-      </Hero>
+        <h2>{snapshot.student.currentGoal}</h2>
+        <p>{snapshot.primaryRisk}</p>
+      </section>
 
-      <div className="grid grid--workspace">
-        <div className="page-stack">
-          <Section
-            title="Latest execution"
-            description="The first coach view is evidence-first. The active session result stays above charts and historical abstractions."
-            meta={<StatusPill>{snapshot.latestExecution.adherence} adherence</StatusPill>}
-          >
-            <div className="page-stack">
-              <div className="split">
-                <strong>{snapshot.latestExecution.title}</strong>
-                <span className="muted">{snapshot.latestExecution.completedAt}</span>
-              </div>
-              <p>{snapshot.latestExecution.note}</p>
-            </div>
-          </Section>
+      <section className="metric-grid">
+        <MetricTile
+          label="adherence"
+          value={snapshot.latestExecution.adherence}
+          detail="load adjusted"
+        />
+        <MetricTile
+          label="sleep"
+          value={snapshot.latestFeedback.sleep}
+          detail="late signal"
+          tone="lime"
+        />
+      </section>
 
-          <Section
-            title="Timeline"
-            description="Key evidence stays chronological so every later summary can point back to concrete events."
-          >
-            <div className="timeline">
-              {snapshot.timeline.map((event) => (
-                <div className="timeline__row" key={event.id}>
-                  <div className="timeline__date">{event.occurredAt.slice(5, 16).replace("T", " ")}</div>
-                  <div className="page-stack">
-                    <strong>{event.title}</strong>
-                    <p>{event.detail}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </Section>
-        </div>
+      <div className="stack">
+        <Panel
+          title="Latest execution"
+          eyebrow={snapshot.latestExecution.completedAt.slice(5, 16).replace("T", " ")}
+          badge={<Badge tone="ghost">logged</Badge>}
+        >
+          <p>{snapshot.latestExecution.note}</p>
+        </Panel>
 
-        <div className="page-stack">
-          <Section
-            title="Latest feedback"
-            description="Student H5 stays thin, but the signal quality still shows up clearly inside the coach workspace."
-            meta={<StatusPill tone={snapshot.latestFeedback.painFlag ? "warning" : "default"}>{snapshot.latestFeedback.painFlag ? "pain flag" : "stable"}</StatusPill>}
-          >
-            <div className="list">
-              <div className="list-item">
-                <div className="split">
-                  <strong>Sleep</strong>
-                  <span>{snapshot.latestFeedback.sleep}</span>
-                </div>
-              </div>
-              <div className="list-item">
-                <div className="split">
-                  <strong>Soreness</strong>
-                  <span>{snapshot.latestFeedback.soreness}</span>
-                </div>
-              </div>
-              <div className="list-item">
-                <div className="split">
-                  <strong>Adherence</strong>
-                  <span>{snapshot.latestFeedback.adherence}</span>
-                </div>
-              </div>
-              <div className="list-item">
-                <p>{snapshot.latestFeedback.note}</p>
-              </div>
+        <Panel
+          title="Latest feedback"
+          eyebrow={snapshot.latestFeedback.submittedAt.slice(5, 16).replace("T", " ")}
+          badge={<Badge tone={snapshot.latestFeedback.painFlag ? "coral" : "ghost"}>{snapshot.latestFeedback.painFlag ? "watch" : "stable"}</Badge>}
+        >
+          <div className="stat-list">
+            <div className="stat-list__row">
+              <span>Sleep</span>
+              <strong>{snapshot.latestFeedback.sleep}</strong>
             </div>
-          </Section>
+            <div className="stat-list__row">
+              <span>Soreness</span>
+              <strong>{snapshot.latestFeedback.soreness}</strong>
+            </div>
+            <div className="stat-list__row">
+              <span>Adherence</span>
+              <strong>{snapshot.latestFeedback.adherence}</strong>
+            </div>
+          </div>
+          <p>{snapshot.latestFeedback.note}</p>
+        </Panel>
 
-          <Section
-            title="Open alerts"
-            description="Rules stay ahead of AI. This rail is where blocking risk becomes visible."
-            meta={<StatusPill tone="danger">{snapshot.alerts.length} open</StatusPill>}
-          >
-            <div className="list">
-              {snapshot.alerts.map((alert) => (
-                <div className="list-item" key={alert.id}>
-                  <div className="split">
-                    <strong>{alert.title}</strong>
-                    <StatusPill tone={alert.severity === "high" ? "danger" : "warning"}>{alert.severity}</StatusPill>
-                  </div>
-                  <p>{alert.detail}</p>
-                </div>
-              ))}
-            </div>
-          </Section>
+        <Panel
+          title="Coach decision"
+          eyebrow="next step"
+          tone="lime"
+        >
+          <p>{coachDecision.summary}</p>
+          <p className="panel-emphasis">{coachDecision.action}</p>
+        </Panel>
 
-          <Section
-            title="Draft recovery"
-            description="Low-connectivity logging support is now an explicit part of the implementation baseline."
-          >
-            <div className="page-stack">
-              <StatusPill>{snapshot.draftRecovery.status}</StatusPill>
-              <p>{snapshot.draftRecovery.note}</p>
-            </div>
-          </Section>
-        </div>
+        <Panel
+          title="Timeline"
+          eyebrow="evidence"
+          badge={<Badge tone="ghost">{snapshot.timeline.length} events</Badge>}
+        >
+          <div className="timeline-list">
+            {snapshot.timeline.map((event) => (
+              <div className="timeline-list__item" key={event.id}>
+                <span className="timeline-list__stamp">
+                  {event.occurredAt.slice(5, 16).replace("T", " ")}
+                </span>
+                <div className="stack-tight">
+                  <strong>{event.title}</strong>
+                  <p>{event.detail}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Panel>
       </div>
-    </main>
+
+      <div className="stack">
+        <ActionLink href="/student/check-in">Open recovery check-in</ActionLink>
+        <ActionLink href={`/student/check-in?athlete=${studentCheckInDraft.studentName}`} tone="secondary">
+          Share student flow
+        </ActionLink>
+      </div>
+    </ScreenShell>
   );
 }
 

@@ -1,85 +1,136 @@
+import Link from "next/link";
 import type { ReactNode } from "react";
 
-export function Hero({
-  eyebrow,
-  title,
-  description,
-  children,
-}: {
-  eyebrow: string;
-  title: string;
-  description: string;
-  children?: ReactNode;
-}) {
-  return (
-    <section className="hero">
-      <span className="hero__eyebrow">{eyebrow}</span>
-      <div className="page-stack">
-        <h1>{title}</h1>
-        <p>{description}</p>
-      </div>
-      {children}
-    </section>
-  );
-}
+type BadgeTone = "default" | "lime" | "coral" | "ghost";
+type PanelTone = "default" | "lime";
+type ActionTone = "primary" | "secondary";
 
-export function Section({
-  title,
-  description,
-  meta,
-  children,
-}: {
-  title: string;
-  description?: string;
-  meta?: ReactNode;
-  children: ReactNode;
-}) {
-  return (
-    <section className="section">
-      <div className="section__header">
-        <div className="page-stack">
-          <h2>{title}</h2>
-          {description ? <p>{description}</p> : null}
-        </div>
-        {meta ? <div className="section__meta">{meta}</div> : null}
-      </div>
-      {children}
-    </section>
-  );
-}
-
-export function MetricCard({
+export function ScreenShell({
   label,
-  value,
-  detail,
+  title,
+  description,
+  leading,
+  children,
+  footer,
 }: {
   label: string;
-  value: string;
-  detail: string;
+  title: string;
+  description: string;
+  leading?: ReactNode;
+  children: ReactNode;
+  footer?: ReactNode;
 }) {
   return (
-    <article className="card">
-      <span className="label">{label}</span>
-      <span className="value">{value}</span>
-      <p>{detail}</p>
-    </article>
+    <main className="screen-shell-wrap">
+      <section className="screen-shell">
+        <header className="screen-shell__header">
+          <div className="stack-tight">
+            {leading}
+            <Badge tone="ghost">{label}</Badge>
+            <h1>{title}</h1>
+            <p>{description}</p>
+          </div>
+        </header>
+
+        <div className="screen-shell__body">{children}</div>
+        {footer ? <div className="screen-shell__footer">{footer}</div> : null}
+      </section>
+    </main>
   );
 }
 
-export function StatusPill({
+export function Badge({
   children,
   tone = "default",
 }: {
   children: ReactNode;
-  tone?: "default" | "warning" | "danger";
+  tone?: BadgeTone;
 }) {
-  const className =
-    tone === "warning"
-      ? "pill pill--warning"
-      : tone === "danger"
-        ? "pill pill--danger"
-        : "pill";
+  return <span className={`badge badge--${tone}`}>{children}</span>;
+}
 
-  return <span className={className}>{children}</span>;
+export function MetricTile({
+  label,
+  value,
+  detail,
+  tone = "default",
+}: {
+  label: string;
+  value: string;
+  detail: string;
+  tone?: "default" | "lime";
+}) {
+  return (
+    <article className={`metric-tile metric-tile--${tone}`}>
+      <span className="metric-tile__label">{label}</span>
+      <strong className="metric-tile__value">{value}</strong>
+      <p className="metric-tile__detail">{detail}</p>
+    </article>
+  );
+}
+
+export function Panel({
+  title,
+  eyebrow,
+  badge,
+  tone = "default",
+  children,
+}: {
+  title: string;
+  eyebrow?: string;
+  badge?: ReactNode;
+  tone?: PanelTone;
+  children: ReactNode;
+}) {
+  return (
+    <section className={`panel panel--${tone}`}>
+      <div className="panel__top">
+        <div className="stack-tight">
+          {eyebrow ? <span className="panel__eyebrow">{eyebrow}</span> : null}
+          <h2>{title}</h2>
+        </div>
+        {badge}
+      </div>
+      <div className="stack-tight">{children}</div>
+    </section>
+  );
+}
+
+export function ActionLink({
+  href,
+  tone = "primary",
+  children,
+}: {
+  href: string;
+  tone?: ActionTone;
+  children: ReactNode;
+}) {
+  return (
+    <Link className={`action-link action-link--${tone}`} href={href}>
+      {children}
+    </Link>
+  );
+}
+
+export function BottomNav({ active }: { active: "Today" | "Athletes" | "Check-in" }) {
+  const items = [
+    { label: "Today", href: "/coach" },
+    { label: "Athletes", href: "/coach/students/student_lin" },
+    { label: "Check-in", href: "/student/check-in" },
+  ] as const;
+
+  return (
+    <nav className="bottom-nav" aria-label="Primary">
+      {items.map((item) => (
+        <Link
+          className={`bottom-nav__item ${item.label === active ? "bottom-nav__item--active" : ""}`}
+          href={item.href}
+          key={item.label}
+        >
+          {item.label}
+        </Link>
+      ))}
+    </nav>
+  );
 }
 

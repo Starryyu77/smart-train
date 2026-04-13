@@ -1,9 +1,9 @@
 # Active Task
 
-- Task ID: figma-ui-exploration
-- Task path: `memory/tasks/figma-ui-exploration/`
+- Task ID: mobile-ui-implementation
+- Task path: `memory/tasks/mobile-ui-implementation/`
 - Updated: 2026-04-13
 
 ## Current Focus
-- Review the mobile-first Figma UI exploration board for the approved Web-first product baseline.
-- Capture user feedback and choose the next core screen to design.
+- Implement the mobile-first product direction directly in the Next.js app.
+- Review the rewritten coach and student routes in code, then extend the next core workflow.
