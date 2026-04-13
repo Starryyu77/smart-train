@@ -7,7 +7,7 @@
 
 **Architecture:** Start with a modular monolith, not microservices. Use a coach-first web app, a lightweight student feedback surface, a single relational data store with strict `org_id` boundaries, object storage for files, background jobs for summaries and alerts, and a rules-first intelligence layer with a provider adapter for future model integration.
 
-**Execution baseline approved on 2026-04-13:** Ship Web-first. The first surface is a coach desktop web app with student mobile H5 inside the same product boundary. Defer mini-program and native app work until distribution or device requirements prove they are necessary.
+**Execution baseline approved on 2026-04-13 and revised by design feedback the same day:** Ship Web-first, but make both coach and student surfaces mobile-first. Defer mini-program and native app work until distribution or device requirements prove they are necessary.
 
 **Why this plan exists now:** The repository currently contains product documents but no implementation scaffold. This plan translates those documents into a buildable MVP shape, explicit boundaries, and phased execution so strategy, design, and engineering review can happen against one shared artifact.
 
@@ -23,7 +23,7 @@
 ## 2. Users And Jobs To Be Done
 
 ### Primary user
-- Offline individual coaches and small studio coaches who need to manage repeated training decisions across multiple students.
+- Offline individual coaches and small studio coaches who need to manage repeated training decisions across multiple students from a phone-first workflow.
 
 ### Secondary users
 - Head coach or organization owner who needs oversight, templates, and quality control.
@@ -92,9 +92,9 @@
 - One provider adapter boundary for future LLM or recommendation integrations.
 
 ### Runtime surfaces
-- Coach web app, desktop-first but usable on tablet.
-- Student lightweight mobile web surface for feedback and limited progress views.
-- Admin web surface for org configuration, exports, audits, and policy settings.
+- Coach mobile-first web app.
+- Student lightweight mobile-first web surface for feedback and limited progress views.
+- Admin and back-office capability stays secondary and should not define the first interaction model.
 
 ### Architectural principles
 - Domain boundaries must exist in code even if deployment is single-binary.

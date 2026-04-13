@@ -1,7 +1,7 @@
 # Smart Training Workbench Architecture Baseline
 
 ## Approved Execution Baseline
-- Delivery surface: coach desktop web first, student mobile H5 first, admin routes inside the same application shell.
+- Delivery surface: coach mobile-first web first, student mobile-first web first, with admin capability deferred or embedded as narrower internal routes later.
 - Stack baseline: `Next.js + React + TypeScript` for the first deployable app.
 - Packaging baseline: one deployable app plus internal packages for domain contracts and platform primitives.
 - China rollout baseline: offshore private pilot is acceptable for early validation; public mainland rollout requires the filing path already captured in project memory.
@@ -17,7 +17,7 @@ memory/
 
 ## Runtime Shape
 ```text
-Coach Web / Student H5 / Admin Routes
+Coach Mobile Web / Student Mobile Web / Internal Admin Routes
                  |
                  v
            Next.js App Router
@@ -42,7 +42,7 @@ Coach Web / Student H5 / Admin Routes
 
 ### `apps/web`
 - Route surfaces and view composition.
-- Read-model assembly for coach workspace.
+- Read-model assembly for coach mobile surfaces and student mobile surfaces.
 - Health endpoint and environment wiring.
 
 ## Domain Language
@@ -63,4 +63,3 @@ Coach Web / Student H5 / Admin Routes
 2. Add database schema, migrations, and seeded workspace snapshots.
 3. Add low-connectivity draft recovery for session logging.
 4. Replace mock read models with data-access services behind org guards.
-

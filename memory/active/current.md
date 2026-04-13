@@ -5,5 +5,5 @@
 - Updated: 2026-04-13
 
 ## Current Focus
-- Review the first Figma UI exploration board for the approved Web-first product baseline.
+- Review the mobile-first Figma UI exploration board for the approved Web-first product baseline.
 - Capture user feedback and choose the next core screen to design.

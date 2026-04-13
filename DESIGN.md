@@ -1,40 +1,44 @@
 # Smart Training Workbench Design Baseline
 
 ## Intent
-- Build a coach operating surface that feels evidence-first, calm, and accountable.
-- Avoid "generic SaaS dashboard" styling that hides the next decision under badges and charts.
-- Make dense information readable on desktop first, with the student touchpoints staying mobile-friendly and narrow.
+- Build both coach and student surfaces as phone-first interfaces.
+- Avoid the look of a desktop dashboard shrunk onto a mobile screen.
+- Keep the product feeling fast, athletic, and operational, not clinical or enterprise-heavy.
 
 ## Visual Direction
-- Overall mood: studio notebook meets professional operations console.
-- Backgrounds should feel warm and quiet rather than clinical white.
-- Accents should signal state and readiness, not brand theater.
+- Overall mood: premium athletic tool with strong contrast and clear motion through the screen.
+- Default surfaces should feel dark, focused, and compact, with bright accents used sparingly for priority and action.
+- Screens should feel like a product someone can operate one-handed between sessions.
 
 ## Tokens
-- Canvas: warm parchment and muted stone.
-- Primary ink: near-black with slight blue-green depth.
-- Accent: deep evergreen for progress and trusted actions.
-- Warning: copper and rust, not neon red.
-- Danger: reserved for blocking risk signals only.
+- Canvas: warm off-white presentation board for mockups, but product screens use deep graphite.
+- Primary surface: deep graphite and charcoal panels.
+- Primary text: soft cream, not pure white.
+- Accent: electric lime for high-priority actions and progress.
+- Secondary accent: cool mint for support states.
+- Warning and risk: coral, reserved for actual review-needed signals.
 
 ## Type
-- Display stack: `"Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif`
-- UI stack: `"Avenir Next", "Segoe UI", "PingFang SC", "Hiragino Sans GB", sans-serif`
-- Use serif only for headers and narrative emphasis.
-- Keep body text compact and quiet.
+- Use a clean sans serif stack for both product surfaces and design mockups.
+- Prioritize strong weight contrast over decorative font pairing.
+- Large numbers and short directives should feel bold and immediate.
+- Body text should stay short, compact, and skimmable on narrow screens.
 
 ## Layout
-- Coach surfaces prioritize one dominant content rail and one supporting evidence rail.
-- The default student workspace should show:
-  1. current goal
-  2. active plan/version
-  3. latest execution
-  4. latest feedback
-  5. open risks
-- Cards are allowed, but they should read like indexed sections, not floating widgets.
+- Both coach and student flows should be stacked mobile screens.
+- Coach screens should prioritize one dominant task per screen:
+  1. daily triage
+  2. athlete detail
+  3. session logging
+  4. plan adjustment
+- Student screens should stay even thinner:
+  1. recovery check-in
+  2. plan view
+  3. progress snapshot
+- Cards are allowed, but they should feel like dense control blocks, not desktop widgets.
 
 ## Interaction
-- Primary actions should be obvious and sparse.
+- Primary actions should be thumb-reachable and visually obvious.
+- Each screen should have one strongest action, not many equal-weight controls.
 - Status colors must always pair with text labels.
-- Loading, empty, stale, and draft-restored states are part of the product, not polish.
-
+- Loading, empty, stale, late-signal, and draft-restored states are part of the product, not polish.
