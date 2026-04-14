@@ -3,7 +3,7 @@
 - Task ID: server-selection-and-sizing
 - Task name: Evaluate hosting options and size the first server for the web pilot
 - Started: 2026-04-13
-- Updated: 2026-04-13
+- Updated: 2026-04-14
 - Workspace: `/Users/starryyu/2026/Smart Training Workbench for Fitness Coaches`
 - Status: active
 
@@ -27,6 +27,9 @@
   - deployment recommendations by stage
 - Prepared the report for delivery into the target Notion page supplied by the user.
 - Wrote the finished report into the target Notion page `服务器选型与云厂商对比报告`.
+- Refined the report from the perspective of migration cost and long-term maintenance cost.
+- Re-ranked the options around total cost of ownership and made `方案 B-Lite` the preferred medium-term architecture.
+- Synced the 2026-04-14 refinement back into the target Notion page as an addendum section focused on migration and maintenance cost.
 
 ## 3. Decisions Made + Reasons
 

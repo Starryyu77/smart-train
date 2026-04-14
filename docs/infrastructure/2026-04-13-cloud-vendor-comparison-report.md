@@ -1,11 +1,12 @@
 # Smart Training Workbench 服务器选型与云厂商对比报告
 
-- 日期：2026-04-13
+- 日期：2026-04-14
 - 适用阶段：当前 Web-first、mobile-first 的教练端 / 学员端产品阶段
 - 结论摘要：
   - 近期目标如果是内部 demo 或小范围封闭试用，优先选择 `单机轻量架构`。
   - 第一台服务器建议从 `2 vCPU / 4 GB RAM / 60-90 GB SSD` 起步，不建议买 `1 GB` 或 `2 GB` 内存机器作为主环境。
   - 如果接下来是中国内地真实 pilot，优先国内云；如果先做内部验证或海外节点试用，可先上香港 / 新加坡。
+  - 如果把 `迁移成本 + 后期维护成本` 一起算进去，最平衡的长期方案不是“最便宜单机”，而是 `1 台应用服务器 + 托管 PostgreSQL + 对象存储` 的 `方案 B-Lite`。
 
 ## 1. 我们的需求
 
@@ -63,6 +64,22 @@
   - `阶段性验证环境`
   - `中国内地正式上线环境`
   之间的取舍。
+
+## 1.5 如果把迁移和维护成本算进去，需求会发生什么变化
+
+- 如果把数据库、文件、备份都压在单机本地磁盘上，前期月费最低，但后期迁移成本最高。
+- 如果数据库从一开始就走托管 PostgreSQL，月费会增加，但会显著降低：
+  - 数据库运维负担
+  - 备份和恢复复杂度
+  - 从 demo 过渡到真实 pilot 的返工量
+- 如果对象存储从一开始就单独抽离，后续迁移时就只需要迁：
+  - 应用计算层
+  - 数据库连接
+  - 存储 endpoint / adapter
+- 真正需要避免的不是“多花一点云资源费”，而是：
+  - 过早把状态写死在单机
+  - 深度绑定某家厂商的专有运行时
+  - 缺少标准化备份、迁移和环境复现路径
 
 ## 2. 架构方案
 
@@ -190,7 +207,7 @@
 ## 3. 厂商对比与建议
 
 - 说明：
-  - 以下价格锚点以 `2026-04-13` 可见的官网公开信息为准。
+  - 以下价格锚点以 `2026-04-14` 可见的官网公开信息为准。
   - 不同地域、税率、促销、带宽和套餐组合会带来差异。
   - 我这里重点比较的是“和我们当前阶段最相关的计算实例价格与配套能力”。
 
@@ -405,96 +422,225 @@
 - Hetzner 适合“预算优先、全球不是第一要求、团队接受更强自管”的路线。
 - 如果目标用户主要在中国内地，它不是首选。
 
-## 4. 综合建议
+## 4. 从迁移和后期维护成本看，三种方案应该怎么排序
 
-## 4.1 如果我们现在就要做决策
+## 4.1 方案 A 的真实总成本
 
-- 我会把建议拆成两个版本：
+- 明面成本：
+  - 最低
+  - 只付一台服务器的钱
+- 隐性成本：
+  - 数据和文件如果留在单机本地，未来迁移最痛
+  - 一旦要上正式用户，就得补：
+    - 数据库迁移
+    - 备份体系
+    - 对象存储
+    - 更安全的发布流程
+- 结论：
+  - 如果只打算跑 `4-8 周 demo`，它是合理的。
+  - 如果已经知道这个产品会继续做，方案 A 不应该停留太久。
 
-### 建议 A：先做内部验证 / demo
+## 4.2 方案 B 的真实总成本
 
-- 地域：`香港` 或 `新加坡`
-- 架构：`方案 A`
-- 规格：`2 vCPU / 4 GB / 60-90 GB SSD`
-- 厂商优先级：
-  1. `腾讯云 Lighthouse`
-  2. `DigitalOcean`
-  3. `Hetzner`
+- 明面成本：
+  - 比方案 A 高
+  - 需要额外支付托管数据库和对象存储
+- 隐性收益：
+  - 大幅减少数据库运维时间
+  - 大幅减少后续迁移返工
+  - 数据备份、恢复、扩容都更规范
+  - 未来切换云厂商时，只要保持：
+    - 标准 PostgreSQL
+    - 标准对象存储接口或 adapter
+    - 容器化运行
+    迁移难度就可控
+- 结论：
+  - 如果从 `6-12 个月总成本` 看，方案 B 往往是最便宜的。
 
-### 为什么这样选
+## 4.3 方案 C 的真实总成本
 
-- 当前产品还在快速迭代，不该让备案和重运维拖慢节奏。
-- 这时最重要的是：
-  - 快速上线
-  - 稳定可访问
-  - 成本低
-  - 能随时迁移
+- 明面成本：
+  - 最高
+- 隐性收益：
+  - 高可用和发布体验最好
+  - 更适合公开 beta 或生产环境
+- 问题：
+  - 对当前产品阶段来说，过早为高可用付费
+  - 会把团队带入更重的运维和监控复杂度
+- 结论：
+  - 不是现在最优解。
 
-## 4.2 如果我们下一步就是中国内地真实 pilot
+## 4.4 细化后的设计原则
 
-- 地域：`中国内地`
-- 架构：`方案 B`
-- 规格：
-  - 应用层先从 `2 vCPU / 4 GB` 或 `4 vCPU / 8 GB` 起步
-  - 数据层上托管 PostgreSQL
-- 厂商优先级：
+- 原则 1：应用层必须尽量无状态
+  - 不把真实业务状态长期压在本地磁盘
+  - 这样未来从一台机迁到多台机时，不需要重写应用模型
+- 原则 2：数据库优先选择标准 PostgreSQL
+  - PostgreSQL 的可迁移性和生态成熟度最好
+  - 避免一开始就依赖厂商专有数据库能力
+- 原则 3：对象存储要通过应用层 adapter 使用
+  - 不把大量业务逻辑直接写死在某一家存储 SDK 细节上
+  - 这样未来切换 COS / OSS / Spaces / S3 更容易
+- 原则 4：应用部署方式保持通用
+  - 优先 `Dockerfile + Docker Compose`
+  - 避免过早依赖专有 Serverless/PaaS 运行时
+- 原则 5：从 pilot 阶段开始，就把备份、恢复、迁移路径文档化
+  - 迁移成本高的核心原因往往不是技术本身，而是没人知道怎么迁
+
+## 5. 厂商在迁移与维护成本上的差异
+
+## 5.1 腾讯云
+
+- 迁移成本视角：
+  - `DTS` 支持数据库迁移、同步、订阅，适合后续上云和迁移。
+  - `COS` 官方明确支持 S3 兼容用法，便于减少对象存储锁定。
+- 维护成本视角：
+  - 从 `Lighthouse -> CVM -> TencentDB -> COS -> CLB` 的路径比较顺。
+  - 更适合中国用户访问。
+- 结论：
+  - 如果你同时在意中国访问体验、迁移工具、对象存储兼容性，腾讯云是当前最平衡的国内方案。
+
+## 5.2 阿里云
+
+- 迁移成本视角：
+  - `RDS` 和 `DTS` 都很成熟，数据库迁移和后续运维路径清晰。
+  - `OSS` 很强，但如果你特别强调对象存储的跨云可移植性，应用层最好自己做 adapter，不要过度依赖厂商特性。
+- 维护成本视角：
+  - 阿里云在国内生产、备案、长期运营文档方面很强。
+  - `RDS` 官方文档对备份、恢复、监控、故障切换的说明很完整。
+- 结论：
+  - 如果你更看重国内正式上线、文档完备性和长期运营稳定性，阿里云会更稳。
+
+## 5.3 AWS
+
+- 迁移成本视角：
+  - `Lightsail` 本身就包含实例、托管数据库、快照、负载均衡等基础能力。
+  - AWS 路径的优点是：后续很容易继续升级到更完整的 AWS 体系。
+- 维护成本视角：
+  - 托管能力成熟，长期维护成本低。
+  - 但价格明显高于当前项目所需的轻量级别。
+- 结论：
+  - 如果你确定未来要走更全球化、更重的基础设施路线，AWS 很好。
+  - 如果你主要面向中国用户或小团队早期产品，它偏贵。
+
+## 5.4 DigitalOcean
+
+- 迁移成本视角：
+  - 托管 PostgreSQL 有自动更新、PITR、自动故障切换。
+  - `Spaces` 官方明确是 S3-compatible，对象存储迁移心智负担低。
+- 维护成本视角：
+  - 对小团队最友好，日常维护负担很低。
+  - 但中国内地网络体验不如国内云。
+- 结论：
+  - 如果是海外验证环境，而且你优先考虑维护简单，DigitalOcean 是海外路线里最平衡的选择。
+
+## 5.5 Hetzner
+
+- 迁移成本视角：
+  - 裸算力便宜，但很多事情更偏自管。
+- 维护成本视角：
+  - 机器费低，不代表总成本低。
+  - 如果团队自己扛数据库、备份、恢复、监控，后期维护成本会高。
+- 结论：
+  - 如果你最在意的是总拥有成本而不是裸机月费，Hetzner 不是当前最优选。
+
+## 6. 细化后的最终建议
+
+## 6.1 最值得推荐的细化方案：方案 B-Lite
+
+- 架构：
+  - `1 台应用服务器`
+  - `1 个托管 PostgreSQL`
+  - `1 个对象存储`
+  - `Caddy 或 Nginx`
+  - `Docker Compose`
+- 为什么是它：
+  - 比全自管单机贵一点
+  - 但比“先省钱，3 个月后整体重迁”便宜得多
+  - 能把迁移成本和维护成本都压在可控范围内
+
+## 6.2 如果只做短期 demo
+
+- 可以先用方案 A，但要加一个硬边界：
+  - 只作为 `短期验证环境`
+  - 不把它当长期生产基础
+- 一旦出现以下任一信号，就直接切 B-Lite：
+  - 有真实教练和学员开始持续使用
+  - 需要保留正式业务数据
+  - 需要多环境
+  - 需要稳定备份和恢复
+
+## 6.3 国内路线怎么选
+
+- 如果优先考虑：
+  - 中国访问体验
+  - 迁移工具
+  - 对象存储兼容性
+  - 从轻量实例向正式架构平滑升级
+- 我会优先推荐：
   1. `腾讯云`
   2. `阿里云`
 
-### 为什么这样选
+- 更具体一点：
+  - `短期 demo`：腾讯云 `Lighthouse 2C4G`
+  - `长期可维护方案`：腾讯云 `应用服务器 + TencentDB for PostgreSQL + COS`
 
-- 真实中国用户体验和合规路径会立刻变得重要。
-- 一旦有真实数据，继续用本地文件存储就不合适了。
-- 国内云更适合：
-  - 中国内地网络体验
-  - 域名解析与证书配套
-  - 后续备案与生产升级
+## 6.4 海外路线怎么选
 
-## 4.3 我的最终选型建议
+- 如果优先考虑维护简单和迁移容易：
+  1. `DigitalOcean`
+  2. `AWS`
+  3. `Hetzner`
 
-- 如果你让我今天就拍板第一台机器：
-  - 我建议用 `腾讯云 Lighthouse`
-  - 规格选 `2 vCPU / 4 GB / 90 GB SSD / 30 Mbps`
-- 原因：
-  - 价格锚点清晰
-  - 轻量应用场景匹配度高
-  - 国内用户访问更友好
-  - 后续升级到 `CVM + TencentDB + COS + CLB` 的路径自然
+- 更具体一点：
+  - `海外 demo / 轻量 pilot`：`DigitalOcean Droplet + Managed PostgreSQL + Spaces`
+  - `全球化长期路线`：`AWS Lightsail / EC2 + RDS + S3`
 
-- 如果你明确说“我们先不走中国内地公开发布，只做内部试用”：
-  - 我会把备选切成：
-    - `腾讯云香港`
-    - `DigitalOcean 新加坡`
-    - `Hetzner`
+## 6.5 我的最终结论
 
-- 如果你明确说“我们就是要走中国内地正式上线”：
-  - 那我会建议直接按：
-    - 国内节点
-    - 托管数据库
-    - ICP 准备
-  来做，而不是继续把系统停留在 demo 架构。
+- 如果只看“今天买哪台最便宜”，会选单机轻量服务器。
+- 如果把“未来迁移 + 后期维护 + 团队时间成本”也算进去，我的推荐会变成：
+  - `短期 demo`：`腾讯云 Lighthouse 2C4G`
+  - `中期正式可维护方案`：`腾讯云 应用服务器 + TencentDB for PostgreSQL + COS`
 
-## 5. 落地建议
+- 原因不是腾讯云绝对最好，而是它对当前项目的几个关键点同时满足：
+  - 国内访问体验
+  - 早期轻量部署便宜
+  - 后续升级路径顺
+  - `COS` 有 S3 兼容使用路径
+  - `DTS` 有助于后续迁移
+
+## 7. 落地建议
 
 - 下一步建议顺序：
-  1. 先确认目标环境是 `内部 demo` 还是 `中国内地 pilot`
-  2. 锁定厂商和地域
-  3. 再做部署清单：
-     - 操作系统
-     - 反向代理
-     - HTTPS
-     - 环境变量
-     - 进程管理
-     - 数据备份
-     - 数据库替换计划
+  1. 先确认目标环境是 `短期内部 demo` 还是 `中期真实 pilot`
+  2. 如果是短期 demo，先上 `腾讯云 Lighthouse 2C4G`
+  3. 如果预计 1-3 个月内就要接真实用户，直接走 `B-Lite`
+  4. 同时补齐：
+     - `Dockerfile`
+     - `docker-compose.yml`
+     - 生产启动命令
+     - 环境变量模板
+     - 数据库切换计划
+     - 备份与恢复说明
 
-## 6. 参考来源
+## 8. 参考来源
 
 - 腾讯云 Lighthouse 官方产品页：https://www.tencentcloud.com/en/products/lighthouse
 - 腾讯云 Lighthouse 官方概览：https://www.tencentcloud.com/document/product/1103/41261
+- 腾讯云 DTS 官方产品页：https://www.tencentcloud.com/products/dts
+- 腾讯云 COS 官方产品页：https://www.tencentcloud.com/products/cos
+- 腾讯云 COS S3 兼容配置文档：https://www.tencentcloud.com/document/product/436/34688
 - 阿里云轻量应用服务器官方产品页：https://www.aliyun.com/product/swas
 - 阿里云创建轻量应用服务器文档：https://help.aliyun.com/zh/simple-application-server/user-guide/create-a-server
 - 阿里云 ICP 备案 FAQ：https://help.aliyun.com/zh/icp-filing/basic-icp-service/product-overview/faq-about-icp-filing-applications-in-different-scenarios
+- 阿里云 RDS 产品页：https://www.alibabacloud.com/product/apsaradb-rds
+- 阿里云 RDS 产品说明与运维能力文档：https://www.alibabacloud.com/help/en/rds/product-overview/what-is-apsaradb-rds-what-is-apsaradb-rds
+- 阿里云使用 DTS 迁移 PostgreSQL 到 RDS 文档：https://help.aliyun.com/zh/rds/apsaradb-rds-for-postgresql/migrate-data-from-a-self-managed-database-that-runs-postgresql-9-x-to-an-apsaradb-rds-for-postgresql-instance
 - AWS Lightsail Pricing：https://aws.amazon.com/lightsail/pricing/
-- DigitalOcean Droplet Pricing：https://www.digitalocean.com/pricing/droplets
+- AWS Lightsail 功能总览：https://docs.aws.amazon.com/lightsail/latest/userguide/what-is-amazon-lightsail.html
+- AWS Lightsail 数据库规格说明：https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-choosing-a-database.html
+- DigitalOcean 定价页：https://www.digitalocean.com/pricing
+- DigitalOcean Managed PostgreSQL 特性：https://docs.digitalocean.com/products/databases/postgresql/details/features/
+- DigitalOcean Spaces 产品页：https://www.digitalocean.com/products/spaces/
 - Hetzner Cloud 定价与方案页：https://www.hetzner.com/cloud

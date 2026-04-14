@@ -9,11 +9,14 @@
 - Wrote the first server-selection and capacity recommendation document.
 - Expanded the work into a fuller cloud-vendor comparison report for Notion delivery.
 - Wrote the final report into the target Notion page.
+- Refined the report around migration cost and long-term maintenance cost, and promoted `方案 B-Lite` as the preferred medium-term target.
+- Synced the refined 2026-04-14 version back into the Notion page as an addendum.
 
 ## Key Decisions
 - First server floor: `2 vCPU / 4 GB RAM`.
 - First deployment shape: single-node.
 - Light-server products are acceptable for demo / small pilot, but not the final long-term answer once real scale or stronger network guarantees matter.
+- If total cost of ownership is considered, the preferred medium-term architecture is `1 app server + managed PostgreSQL + object storage`.
 
 ## Open Issues
 - The region decision is still conditional on whether the next milestone is `offshore internal demo` or `mainland pilot`.
