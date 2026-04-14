@@ -1,6 +1,6 @@
 # Memory Index
 
-- Updated: 2026-04-13
+- Updated: 2026-04-14
 - Active task: `server-selection-and-sizing`
 
 ## Project

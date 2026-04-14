@@ -30,6 +30,14 @@
 - Refined the report from the perspective of migration cost and long-term maintenance cost.
 - Re-ranked the options around total cost of ownership and made `方案 B-Lite` the preferred medium-term architecture.
 - Synced the 2026-04-14 refinement back into the target Notion page as an addendum section focused on migration and maintenance cost.
+- Wrote a concrete deployment artifact at `docs/infrastructure/2026-04-14-vendor-deployment-checklists-and-budget-breakdown.md`.
+- Split each vendor recommendation into:
+  - `短期 demo` bundle
+  - `B-Lite 中期 pilot` bundle
+  - `固定成本 / 使用量成本 / 规划预留` budget layers
+- Synced the deployment-checklist and budget-breakdown artifact into Notion as a child page:
+  - `部署清单与预算拆分（2026-04-14）`
+  - `https://app.notion.com/p/3420b4a1b90481789124eb0ba2ca6fa6`
 
 ## 3. Decisions Made + Reasons
 
@@ -39,6 +47,9 @@
 | 2 | Recommend `2 vCPU / 4 GB RAM` as the first server floor. | It is the smallest spec likely to give Next.js on Node 22 enough runtime headroom for a stable demo and small pilot. | `1 GB` or `2 GB` RAM primary server: rejected because it is too likely to feel cramped and unstable once normal operational overhead is included. |
 | 3 | Keep the first deployment single-node and stateful. | The current persistence path is local-file-backed, so the real bottleneck is deployment simplicity and safe persistence, not horizontal scale. | Start with load balancers and multiple app nodes: rejected because the app is not yet at that operational stage. |
 | 4 | Treat CVM/ECS as the next step once public network guarantees or higher concurrency matter. | Both provider docs position their light-server products for lighter workloads and point heavier or more demanding public-network scenarios toward the main cloud-server products. | Assume the light-server class should remain the long-term production shape: rejected because the official docs explicitly limit that positioning. |
+| 5 | Split the final recommendation by stage instead of forcing a single provider choice. | The cheapest short-term demo option and the easiest medium-term budgeting option are different. | Give one universal “best provider” answer: rejected because it would hide the tradeoff between demo cost and maintainability. |
+| 6 | Keep `腾讯云 Lighthouse 2核4GB` as the concrete short-term domestic demo bundle. | The public mainland pricing is simple and aggressive enough to make it the most practical first server for a quick demo. | Start the demo directly on CVM/ECS/RDS: rejected because it adds cost and operational complexity before it adds product value. |
+| 7 | For medium-term maintainable budgeting, promote `阿里云 B-Lite` and `DigitalOcean B-Lite` as the clearest bundles. | Their app + managed DB + object storage public pricing is easier to estimate cleanly than Tencent Cloud’s formula-heavy PostgreSQL pricing. | Keep Tencent Cloud as the default budgeting answer for every B-Lite case: rejected because the database floor price is harder to explain with a simple public number. |
 
 ## 4. Open Issues
 - The real expected pilot size is still unknown: internal demo, closed beta, and public pilot lead to different region decisions.
@@ -46,6 +57,11 @@
 - Final provider choice between Tencent Cloud and Alibaba Cloud is not locked.
 - Real load testing has not been run yet, so the capacity estimates are engineering planning estimates only.
 - The user still needs to choose whether the next environment is `internal offshore demo` or `mainland pilot`.
+- The user still needs to choose which concrete bundle to execute next:
+  - `腾讯云 demo`
+  - `阿里云 B-Lite`
+  - `DigitalOcean B-Lite`
+  - `AWS B-Lite`
 
 ## 5. Task-Specific Constraints
 - Recommendations must fit the current project stage instead of over-engineering for hypothetical future scale.
@@ -53,4 +69,4 @@
 - Every meaningful round of conclusions must be written into `memory/` and committed.
 
 ## 6. Next Step
-- Ask the user to choose between `internal offshore demo` and `mainland pilot`, then turn the chosen path into a concrete deployment checklist.
+- Turn the chosen bundle into an actual server-provisioning and deployment runbook once the user locks a vendor path.
